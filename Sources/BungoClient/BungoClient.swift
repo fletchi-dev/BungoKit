@@ -42,7 +42,7 @@ public final class BungoClient {
 					}
 					
 					guard response.statusCode == request.successStatus else {
-						cont.resume(throwing: BungoError.invalidStatus(response.statusCode, request.successStatus))
+						cont.resume(throwing: BungoError.invalidStatus(actual: response.statusCode, expected: request.successStatus))
 						return
 					}
 
