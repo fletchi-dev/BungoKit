@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Error: Swift.Error {
+public enum BungoManifestError: Swift.Error {
     case couldNotOpenArchive
     case unknown
     case decoderError(Swift.Error, Data)

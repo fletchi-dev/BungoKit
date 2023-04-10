@@ -58,7 +58,7 @@ public final class BungoManifest {
         do {
             return try jsonDecoder.decode(Def.Result.self, from: data)
         } catch {
-            throw Error.decoderError(error, data)
+            throw BungoManifestError.decoderError(error, data)
         }
     }
 }

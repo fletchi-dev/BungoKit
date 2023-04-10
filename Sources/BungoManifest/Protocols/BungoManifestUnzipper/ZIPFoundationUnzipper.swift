@@ -7,7 +7,7 @@ final class ZIPFoundationUnzipper: BungoManifestUnzipper {
             let archive = Archive(data: data, accessMode: .read, preferredEncoding: .utf8),
             let entry = archive.makeIterator().first(where: { _ in true })
         else {
-            throw Error.couldNotOpenArchive
+            throw BungoManifestError.couldNotOpenArchive
         }
 
         var manifestData = Data()

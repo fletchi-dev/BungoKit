@@ -21,7 +21,7 @@ final class SQLiteClient: BungoManifestSQLClient {
         do {
             items = try db.prepare(query)
         } catch {
-            throw Error.sqliteSelectError(error)
+            throw BungoManifestError.sqliteSelectError(error)
         }
 
         for item in items {
@@ -30,7 +30,7 @@ final class SQLiteClient: BungoManifestSQLClient {
             do {
                 rawValue = try item.get(resultColumn)
             } catch {
-                throw Error.sqliteRowError(error)
+                throw BungoManifestError.sqliteRowError(error)
             }
 
             guard let data = rawValue.data(using: .utf8) else {
