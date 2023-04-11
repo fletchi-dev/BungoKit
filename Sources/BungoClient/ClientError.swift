@@ -5,6 +5,6 @@ public enum BungoError: Error {
     case network(Error)
     case decode(Error, Data)
     case unknown
-	case invalidResponse
-	case invalidStatus(actual: Int, expected: Int)
+    case invalidResponse
+    case invalidStatus(actual: Int, expected: Int)
 }

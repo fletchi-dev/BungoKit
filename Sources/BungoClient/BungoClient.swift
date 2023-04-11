@@ -24,38 +24,32 @@ public final class BungoClient {
     }
 
     public func send<R: BungoRequest>(_ request: R) async throws -> Response<R.Response> {
-        let data: Data
+        let data: Data = try await withCheckedThrowingContinuation { cont in
+            let urlRequest = request.makeURLRequest(baseURL: baseURL)
 
-        do {
-            data = try await withCheckedThrowingContinuation { cont in
-                let urlRequest = request.makeURLRequest(baseURL: baseURL)
+            urlSession.dataTask(with: urlRequest) { data, response, error in
+                if let error {
+                    cont.resume(throwing: BungoError.network(error))
+                    return
+                }
 
-                urlSession.dataTask(with: urlRequest) { data, response, error in
-                    if let error {
-                        cont.resume(throwing: error)
-                        return
-                    }
-					
-					guard let response = response as? HTTPURLResponse else {
-						cont.resume(throwing: BungoError.invalidResponse)
-						return
-					}
-					
-					guard response.statusCode == request.successStatus else {
-						cont.resume(throwing: BungoError.invalidStatus(actual: response.statusCode, expected: request.successStatus))
-						return
-					}
+                guard let response = response as? HTTPURLResponse else {
+                    cont.resume(throwing: BungoError.invalidResponse)
+                    return
+                }
 
-                    guard let data else {
-                        cont.resume(throwing: BungoError.unknown)
-                        return
-                    }
+                guard response.statusCode == request.successStatus else {
+                    cont.resume(throwing: BungoError.invalidStatus(actual: response.statusCode, expected: request.successStatus))
+                    return
+                }
 
-                    cont.resume(returning: data)
-                }.resume()
-            }
-        } catch {
-            throw BungoError.network(error)
+                guard let data else {
+                    cont.resume(throwing: BungoError.unknown)
+                    return
+                }
+
+                cont.resume(returning: data)
+            }.resume()
         }
 
         do {
