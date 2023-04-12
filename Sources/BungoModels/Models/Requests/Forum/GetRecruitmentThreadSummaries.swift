@@ -24,8 +24,8 @@ public extension Requests.Forum {
         public let method: HTTPMethod = .post
         public let successStatus: Int = 200
 
-        public init(parameters: Parameters) {
-            self.parameters = parameters
+        public init() {
+            parameters = .init()
         }
     }
 }

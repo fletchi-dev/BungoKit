@@ -39,7 +39,13 @@ public struct {{ name }}Request: BungoRequest {
 	public let method: HTTPMethod = {{ method }}
 	public let successStatus: Int = {{ successStatus }}
 	
+	{% if hasParameters %}
 	public init(parameters: Parameters) {
 		self.parameters = parameters
 	}
+	{% else %}
+	public init() {
+		self.parameters = .init()
+	}
+	{% endif %}
 }

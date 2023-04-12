@@ -141,6 +141,7 @@ struct OperationRenderer {
             "documentation": documentation,
             "paramString": paramString,
             "responseType": responseType,
+			"hasParameters": (queryParameters.count + pathParameters.count) > 0,
             "queryParameters": queryParameters,
             "pathParameters": pathParameters,
             "method": ".\(definition.operation.method.rawValue.lowercased())",
