@@ -15,7 +15,7 @@ public extension BungoRequest {
         var filledPath = path
 
         for (param, value) in parameters.path {
-            filledPath = filledPath.replacingOccurrences(of: "{\\(param)}", with: value)
+            filledPath = filledPath.replacingOccurrences(of: "{" + param + "}", with: value)
         }
 
         let queryItems = parameters.query.map { param, value in
