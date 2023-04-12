@@ -45,7 +45,7 @@ public final class BungoManifest {
         try self.init(at: localURL.path, jsonDecoder: jsonDecoder, sqlClient: sqlClient)
     }
 
-    public func get<Def: ManifestDefinition>(hash: Int64, for definition: Def) throws -> Def.Result? {
+    public func get<Def: ManifestDefinition>(hash: UInt32, for definition: Def) throws -> Def.Result? {
         guard let data = try sqlClient.select(
             column: definition.jsonColumn,
             from: definition.table,
