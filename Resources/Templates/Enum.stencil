@@ -1,0 +1,9 @@
+{% include "Header.stencil" %}
+
+import Foundation
+
+{% if extensionOf %}
+{% include "ExtendingEnum.stencil" %}
+{% else %}
+{% include "TopLevelEnum.stencil" %}
+{% endif %}

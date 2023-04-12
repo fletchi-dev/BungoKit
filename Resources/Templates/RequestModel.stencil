@@ -1,0 +1,10 @@
+{% include "Header.stencil" %}
+
+import Foundation
+{% for import in imports %}import {{ import }}{% endfor %}
+
+{% if extensionOf %}
+{% include "ExtendingRequestModel.stencil" %}
+{% else %}
+{% include "TopLevelRequestModel.stencil" %}
+{% endif %}

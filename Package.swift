@@ -9,6 +9,10 @@ let package = Package(
         .iOS("13"),
     ],
     products: [
+        .executable(
+            name: "BungoCodeGen",
+            targets: ["BungoCodeGen"]
+        ),
         .library(
             name: "BungoClient",
             targets: ["BungoClient"]
@@ -30,8 +34,21 @@ let package = Package(
         .package(url: "https://github.com/Flight-School/AnyCodable", from: "0.6.7"),
         .package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.14.1"),
         .package(url: "https://github.com/weichsel/ZIPFoundation", from: "0.9.16"),
+        .package(url: "https://github.com/kylef/PathKit", from: "1.0.1"),
+        .package(url: "https://github.com/yonaskolb/SwagGen", from: "4.7.0"),
+        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.51.3"),
+        .package(url: "https://github.com/SwiftGen/StencilSwiftKit", from: "2.10.1"),
     ],
     targets: [
+        .executableTarget(
+            name: "BungoCodeGen",
+            dependencies: [
+                .product(name: "Swagger", package: "SwagGen"),
+                "PathKit",
+                .product(name: "StencilSwiftKit", package: "StencilSwiftKit"),
+                "SwiftFormat",
+            ]
+        ),
         .target(
             name: "BungoClient",
             dependencies: ["BungoModels"]

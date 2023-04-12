@@ -1,0 +1,45 @@
+{% for line in documentation %}
+/// {{ line }}
+{% endfor %}
+public struct {{ name }}Request: BungoRequest {
+	public typealias Response = {{ responseType }}
+
+	public struct Parameters: BungoRequestParameters {
+		public var query: [String : String]
+		public var path: [String : String]
+		
+		public init({{ paramString }}) {
+			query = [:]
+			path = [:]
+			
+			{% for param in queryParameters %}
+			{% if param.isOptional %}
+			if let {{ param.name }} {
+				query["{{ param.name }}"] = "\({{ param.value }})"
+			}
+			{% else %}
+			query["{{ param.name }}"] = "\({{ param.value }})"
+			{% endif %}
+			{% endfor %}
+
+			{% for param in pathParameters %}
+			{% if param.isOptional %}
+			if let {{ param.name }} {
+				path["{{ param.name }}"] = "\({{ param.value }})"
+			}
+			{% else %}
+			path["{{ param.name }}"] = "\({{ param.value }})"
+			{% endif %}
+			{% endfor %}
+		}
+	}
+	
+	public let path = "{{ path }}"
+	public let parameters: Parameters
+	public let method: HTTPMethod = {{ method }}
+	public let successStatus: Int = {{ successStatus }}
+	
+	public init(parameters: Parameters) {
+		self.parameters = parameters
+	}
+}

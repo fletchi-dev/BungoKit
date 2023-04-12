@@ -1,0 +1,4 @@
+public extension {{ extensionOf }} {
+	{% include "TopLevelObject.stencil" %}
+}
+

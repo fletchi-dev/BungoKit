@@ -1,0 +1,11 @@
+{% for line in documentation %}
+/// {{ line }}
+{% endfor %}
+public enum {{ typeName }}: {{ rawTypeName }} {
+	{% for case in cases -%}
+	{% for line in case.documentation %}
+	/// {{ line }}
+	{% endfor %}
+	case {{ case.name }} = {{ case.value }}
+	{% endfor %}
+}

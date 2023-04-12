@@ -1,0 +1,41 @@
+{% for line in documentation %}
+/// {{ line }}
+{% endfor %}
+public struct {{ name }}: Codable {
+	{% for property in properties %}
+	{% for line in property.documentation %}
+	/// {{ line }}
+	{% endfor %}
+	public var {{ property.name }}: {{ property.type }}?
+	
+	{% endfor %}
+	
+	{% if properties.count > 0 %}
+	public enum CodingKeys: String, CodingKey {
+	{% for property in properties %}
+	{% if property.name == property.apiName %}
+		case {{ property.name }}
+	{% else %}
+		case {{ property.name }} = "{{ property.apiName }}"
+	{% endif %}
+	{% endfor %}
+    }
+	
+	public init(from decoder: Decoder) throws {
+		let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
+
+		{% for property in properties %}
+		{% if property.type == "Int64" or property.type == "UInt64" %}
+		let {{ property.name }} = try? container.decode(String.self, forKey: CodingKeys.{{ property.name }})
+		if let {{ property.name }}, let {{ property.name }}Int = Int64({{ property.name }}) {
+			self.{{ property.name }} = {{ property.name }}Int
+		} else {
+			self.{{ property.name }} = nil
+		}
+		{% else %}
+		{{ property.name }} = try? container.decode({{ property.type }}.self, forKey: CodingKeys.{{ property.name }})
+		{% endif %}
+		{% endfor %}
+	}
+	{% endif %}
+}
