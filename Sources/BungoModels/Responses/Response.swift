@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Response<Result: Codable>: Codable {
-    public var response: Result
+    public var response: Result?
     public var errorCode: Int32
     public var throttleSeconds: Int32
     public var errorStatus: String
