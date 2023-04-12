@@ -27,19 +27,9 @@ public final class BungoClient {
         let data: Data = try await withCheckedThrowingContinuation { cont in
             let urlRequest = request.makeURLRequest(baseURL: baseURL)
 
-            urlSession.dataTask(with: urlRequest) { data, response, error in
+            urlSession.dataTask(with: urlRequest) { data, _, error in
                 if let error {
                     cont.resume(throwing: BungoError.network(error))
-                    return
-                }
-
-                guard let response = response as? HTTPURLResponse else {
-                    cont.resume(throwing: BungoError.invalidResponse)
-                    return
-                }
-
-                guard response.statusCode == request.successStatus else {
-                    cont.resume(throwing: BungoError.invalidStatus(actual: response.statusCode, expected: request.successStatus))
                     return
                 }
 
