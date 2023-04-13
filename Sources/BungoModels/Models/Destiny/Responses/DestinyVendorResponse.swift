@@ -21,7 +21,7 @@ public extension Destiny.Responses {
 
         /// Sales, keyed by the vendorItemIndex of the item being sold.
         /// COMPONENT TYPE: VendorSales
-        public var sales: DictionaryComponentResponse<Destiny.Entities.Vendors.DestinyVendorSaleItemComponent>?
+        public var sales: DictionaryComponentResponse<Int32, Destiny.Entities.Vendors.DestinyVendorSaleItemComponent>?
 
         /// A map of string variable values by hash for this character context.
         /// COMPONENT TYPE: StringVariables
@@ -46,7 +46,7 @@ public extension Destiny.Responses {
             categories = try? container.decode(SingleComponentResponse<Destiny.Entities.Vendors.DestinyVendorCategoriesComponent>.self, forKey: CodingKeys.categories)
             currencyLookups = try? container.decode(SingleComponentResponse<Destiny.Components.Inventory.DestinyCurrenciesComponent>.self, forKey: CodingKeys.currencyLookups)
             itemComponents = try? container.decode(DestinyItemComponentSetOfint32.self, forKey: CodingKeys.itemComponents)
-            sales = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Vendors.DestinyVendorSaleItemComponent>.self, forKey: CodingKeys.sales)
+            sales = try? container.decode(DictionaryComponentResponse<Int32, Destiny.Entities.Vendors.DestinyVendorSaleItemComponent>.self, forKey: CodingKeys.sales)
             stringVariables = try? container.decode(SingleComponentResponse<Destiny.Components.StringVariables.DestinyStringVariablesComponent>.self, forKey: CodingKeys.stringVariables)
             vendor = try? container.decode(SingleComponentResponse<Destiny.Entities.Vendors.DestinyVendorComponent>.self, forKey: CodingKeys.vendor)
         }

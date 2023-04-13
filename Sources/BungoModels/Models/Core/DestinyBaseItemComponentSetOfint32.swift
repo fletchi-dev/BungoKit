@@ -5,9 +5,9 @@
 import Foundation
 
 public struct DestinyBaseItemComponentSetOfint32: Codable {
-    public var objectives: DictionaryComponentResponse<Destiny.Entities.Items.DestinyItemObjectivesComponent>?
+    public var objectives: DictionaryComponentResponse<Int32, Destiny.Entities.Items.DestinyItemObjectivesComponent>?
 
-    public var perks: DictionaryComponentResponse<Destiny.Entities.Items.DestinyItemPerksComponent>?
+    public var perks: DictionaryComponentResponse<Int32, Destiny.Entities.Items.DestinyItemPerksComponent>?
 
     public enum CodingKeys: String, CodingKey {
         case objectives
@@ -17,7 +17,7 @@ public struct DestinyBaseItemComponentSetOfint32: Codable {
     public init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-        objectives = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Items.DestinyItemObjectivesComponent>.self, forKey: CodingKeys.objectives)
-        perks = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Items.DestinyItemPerksComponent>.self, forKey: CodingKeys.perks)
+        objectives = try? container.decode(DictionaryComponentResponse<Int32, Destiny.Entities.Items.DestinyItemObjectivesComponent>.self, forKey: CodingKeys.objectives)
+        perks = try? container.decode(DictionaryComponentResponse<Int32, Destiny.Entities.Items.DestinyItemPerksComponent>.self, forKey: CodingKeys.perks)
     }
 }

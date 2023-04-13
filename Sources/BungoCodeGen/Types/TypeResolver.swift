@@ -43,7 +43,7 @@ class TypeResolver {
         return mapped
     }
 
-    func toSwift(type: String) -> String? {
+    func primitiveToSwift(type: String) -> String? {
         switch type {
         case "int8", "int16", "int32", "int64":
             return type.uppercasingFirst
@@ -69,7 +69,7 @@ class TypeResolver {
             return nil
         }
 
-        guard let type = toSwift(type: name) else {
+        guard let type = primitiveToSwift(type: name) else {
             if let component = components[name] {
                 return component.swiftName
             } else {

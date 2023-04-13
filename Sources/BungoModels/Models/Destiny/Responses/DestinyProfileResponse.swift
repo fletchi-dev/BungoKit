@@ -9,56 +9,56 @@ public extension Destiny.Responses {
     struct DestinyProfileResponse: Codable {
         /// Character activity data - the activities available to this character and its status, keyed by the Character's Id.
         /// COMPONENT TYPE: CharacterActivities
-        public var characterActivities: DictionaryComponentResponse<Destiny.Entities.Characters.DestinyCharacterActivitiesComponent>?
+        public var characterActivities: DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterActivitiesComponent>?
 
         /// COMPONENT TYPE: Collectibles
-        public var characterCollectibles: DictionaryComponentResponse<Destiny.Components.Collectibles.DestinyCollectiblesComponent>?
+        public var characterCollectibles: DictionaryComponentResponse<Int64, Destiny.Components.Collectibles.DestinyCollectiblesComponent>?
 
         /// COMPONENT TYPE: Craftables
-        public var characterCraftables: DictionaryComponentResponse<Destiny.Components.Craftables.DestinyCraftablesComponent>?
+        public var characterCraftables: DictionaryComponentResponse<Int64, Destiny.Components.Craftables.DestinyCraftablesComponent>?
 
         /// A "lookup" convenience component that can be used to quickly check if the character has access to items that can be used for purchasing.
         /// COMPONENT TYPE: CurrencyLookups
-        public var characterCurrencyLookups: DictionaryComponentResponse<Destiny.Components.Inventory.DestinyCurrenciesComponent>?
+        public var characterCurrencyLookups: DictionaryComponentResponse<Int64, Destiny.Components.Inventory.DestinyCurrenciesComponent>?
 
         /// The character's equipped items, keyed by the Character's Id.
         /// COMPONENT TYPE: CharacterEquipment
-        public var characterEquipment: DictionaryComponentResponse<Destiny.Entities.Inventory.DestinyInventoryComponent>?
+        public var characterEquipment: DictionaryComponentResponse<Int64, Destiny.Entities.Inventory.DestinyInventoryComponent>?
 
         /// The character-level non-equipped inventory items, keyed by the Character's Id.
         /// COMPONENT TYPE: CharacterInventories
-        public var characterInventories: DictionaryComponentResponse<Destiny.Entities.Inventory.DestinyInventoryComponent>?
+        public var characterInventories: DictionaryComponentResponse<Int64, Destiny.Entities.Inventory.DestinyInventoryComponent>?
 
         /// Items available from Kiosks that are available to a specific character as opposed to the account as a whole. It must be combined with data from the profileKiosks property to get a full picture of the character's available items to check out of a kiosk.
         /// This component returns information about what Kiosk items are available to you on a *Character* level. Usually, kiosk items will be earned for the entire Profile (all characters) at once. To find those, look in the profileKiosks property.
         /// COMPONENT TYPE: Kiosks
-        public var characterKiosks: DictionaryComponentResponse<Destiny.Components.Kiosks.DestinyKiosksComponent>?
+        public var characterKiosks: DictionaryComponentResponse<Int64, Destiny.Components.Kiosks.DestinyKiosksComponent>?
 
         /// The character loadouts, keyed by the Character's Id.
         /// COMPONENT TYPE: CharacterLoadouts
-        public var characterLoadouts: DictionaryComponentResponse<Destiny.Components.Loadouts.DestinyLoadoutsComponent>?
+        public var characterLoadouts: DictionaryComponentResponse<Int64, Destiny.Components.Loadouts.DestinyLoadoutsComponent>?
 
         /// When sockets refer to reusable Plug Sets (see DestinyPlugSetDefinition for more info), this is the set of plugs and their states, per character, that are character-scoped.
         /// This comes back with ItemSockets, as it is needed for a complete picture of the sockets on requested items.
         /// COMPONENT TYPE: ItemSockets
-        public var characterPlugSets: DictionaryComponentResponse<Destiny.Components.PlugSets.DestinyPlugSetsComponent>?
+        public var characterPlugSets: DictionaryComponentResponse<Int64, Destiny.Components.PlugSets.DestinyPlugSetsComponent>?
 
         /// COMPONENT TYPE: PresentationNodes
-        public var characterPresentationNodes: DictionaryComponentResponse<Destiny.Components.Presentation.DestinyPresentationNodesComponent>?
+        public var characterPresentationNodes: DictionaryComponentResponse<Int64, Destiny.Components.Presentation.DestinyPresentationNodesComponent>?
 
         /// Character-level progression data, keyed by the Character's Id.
         /// COMPONENT TYPE: CharacterProgressions
-        public var characterProgressions: DictionaryComponentResponse<Destiny.Entities.Characters.DestinyCharacterProgressionComponent>?
+        public var characterProgressions: DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterProgressionComponent>?
 
         /// COMPONENT TYPE: Records
-        public var characterRecords: DictionaryComponentResponse<Destiny.Components.Records.DestinyCharacterRecordsComponent>?
+        public var characterRecords: DictionaryComponentResponse<Int64, Destiny.Components.Records.DestinyCharacterRecordsComponent>?
 
         /// Character rendering data - a minimal set of info needed to render a character in 3D - keyed by the Character's Id.
         /// COMPONENT TYPE: CharacterRenderData
-        public var characterRenderData: DictionaryComponentResponse<Destiny.Entities.Characters.DestinyCharacterRenderComponent>?
+        public var characterRenderData: DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterRenderComponent>?
 
         /// COMPONENT TYPE: StringVariables
-        public var characterStringVariables: DictionaryComponentResponse<Destiny.Components.StringVariables.DestinyStringVariablesComponent>?
+        public var characterStringVariables: DictionaryComponentResponse<Int64, Destiny.Components.StringVariables.DestinyStringVariablesComponent>?
 
         /// Do you ever get the feeling that a system was designed *too* flexibly? That it can be used in so many different ways that you end up being unable to provide an easy to use abstraction for the mess that's happening under the surface?
         /// Let's talk about character-specific data that might be related to items without instances. These two statements are totally unrelated, I promise.
@@ -71,7 +71,7 @@ public extension Destiny.Responses {
 
         /// Basic information about each character, keyed by the CharacterId.
         /// COMPONENT TYPE: Characters
-        public var characters: DictionaryComponentResponse<Destiny.Entities.Characters.DestinyCharacterComponent>?
+        public var characters: DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterComponent>?
 
         /// Information about instanced items across all returned characters, keyed by the item's instance ID.
         /// COMPONENT TYPE: [See inside the DestinyItemComponentSet contract for component types.]
@@ -180,22 +180,22 @@ public extension Destiny.Responses {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            characterActivities = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Characters.DestinyCharacterActivitiesComponent>.self, forKey: CodingKeys.characterActivities)
-            characterCollectibles = try? container.decode(DictionaryComponentResponse<Destiny.Components.Collectibles.DestinyCollectiblesComponent>.self, forKey: CodingKeys.characterCollectibles)
-            characterCraftables = try? container.decode(DictionaryComponentResponse<Destiny.Components.Craftables.DestinyCraftablesComponent>.self, forKey: CodingKeys.characterCraftables)
-            characterCurrencyLookups = try? container.decode(DictionaryComponentResponse<Destiny.Components.Inventory.DestinyCurrenciesComponent>.self, forKey: CodingKeys.characterCurrencyLookups)
-            characterEquipment = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Inventory.DestinyInventoryComponent>.self, forKey: CodingKeys.characterEquipment)
-            characterInventories = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Inventory.DestinyInventoryComponent>.self, forKey: CodingKeys.characterInventories)
-            characterKiosks = try? container.decode(DictionaryComponentResponse<Destiny.Components.Kiosks.DestinyKiosksComponent>.self, forKey: CodingKeys.characterKiosks)
-            characterLoadouts = try? container.decode(DictionaryComponentResponse<Destiny.Components.Loadouts.DestinyLoadoutsComponent>.self, forKey: CodingKeys.characterLoadouts)
-            characterPlugSets = try? container.decode(DictionaryComponentResponse<Destiny.Components.PlugSets.DestinyPlugSetsComponent>.self, forKey: CodingKeys.characterPlugSets)
-            characterPresentationNodes = try? container.decode(DictionaryComponentResponse<Destiny.Components.Presentation.DestinyPresentationNodesComponent>.self, forKey: CodingKeys.characterPresentationNodes)
-            characterProgressions = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Characters.DestinyCharacterProgressionComponent>.self, forKey: CodingKeys.characterProgressions)
-            characterRecords = try? container.decode(DictionaryComponentResponse<Destiny.Components.Records.DestinyCharacterRecordsComponent>.self, forKey: CodingKeys.characterRecords)
-            characterRenderData = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Characters.DestinyCharacterRenderComponent>.self, forKey: CodingKeys.characterRenderData)
-            characterStringVariables = try? container.decode(DictionaryComponentResponse<Destiny.Components.StringVariables.DestinyStringVariablesComponent>.self, forKey: CodingKeys.characterStringVariables)
+            characterActivities = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterActivitiesComponent>.self, forKey: CodingKeys.characterActivities)
+            characterCollectibles = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.Collectibles.DestinyCollectiblesComponent>.self, forKey: CodingKeys.characterCollectibles)
+            characterCraftables = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.Craftables.DestinyCraftablesComponent>.self, forKey: CodingKeys.characterCraftables)
+            characterCurrencyLookups = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.Inventory.DestinyCurrenciesComponent>.self, forKey: CodingKeys.characterCurrencyLookups)
+            characterEquipment = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Inventory.DestinyInventoryComponent>.self, forKey: CodingKeys.characterEquipment)
+            characterInventories = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Inventory.DestinyInventoryComponent>.self, forKey: CodingKeys.characterInventories)
+            characterKiosks = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.Kiosks.DestinyKiosksComponent>.self, forKey: CodingKeys.characterKiosks)
+            characterLoadouts = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.Loadouts.DestinyLoadoutsComponent>.self, forKey: CodingKeys.characterLoadouts)
+            characterPlugSets = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.PlugSets.DestinyPlugSetsComponent>.self, forKey: CodingKeys.characterPlugSets)
+            characterPresentationNodes = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.Presentation.DestinyPresentationNodesComponent>.self, forKey: CodingKeys.characterPresentationNodes)
+            characterProgressions = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterProgressionComponent>.self, forKey: CodingKeys.characterProgressions)
+            characterRecords = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.Records.DestinyCharacterRecordsComponent>.self, forKey: CodingKeys.characterRecords)
+            characterRenderData = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterRenderComponent>.self, forKey: CodingKeys.characterRenderData)
+            characterStringVariables = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.StringVariables.DestinyStringVariablesComponent>.self, forKey: CodingKeys.characterStringVariables)
             characterUninstancedItemComponents = try? container.decode([Int: DestinyBaseItemComponentSetOfuint32].self, forKey: CodingKeys.characterUninstancedItemComponents)
-            characters = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Characters.DestinyCharacterComponent>.self, forKey: CodingKeys.characters)
+            characters = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterComponent>.self, forKey: CodingKeys.characters)
             itemComponents = try? container.decode(DestinyItemComponentSetOfint64.self, forKey: CodingKeys.itemComponents)
             metrics = try? container.decode(SingleComponentResponse<Destiny.Components.Metrics.DestinyMetricsComponent>.self, forKey: CodingKeys.metrics)
             platformSilver = try? container.decode(SingleComponentResponse<Destiny.Components.Inventory.DestinyPlatformSilverComponent>.self, forKey: CodingKeys.platformSilver)

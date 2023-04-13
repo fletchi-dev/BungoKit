@@ -15,33 +15,32 @@ extension SwiftRepresentable {
     var swiftNamespace: String { namespace == "Core" ? "" : namespace }
 
     var swiftName: String {
-        var generic: String?
-        var genericTParameter: String?
+        if let valueType = dictionaryComponentResponseRegex.extractCaptureGroupAt(index: 2, from: name),
+           let rawKeytype = dictionaryComponentResponseRegex.extractCaptureGroupAt(index: 1, from: name),
+           let keyType = TypeResolver.shared.primitiveToSwift(type: rawKeytype)
+        {
+            let type = "DictionaryComponentResponse"
 
-        if let match = dictionaryComponentResponseRegex.extractCaptureGroupAt(index: 1, from: name) {
-            generic = "DictionaryComponentResponse"
-            genericTParameter = match
+            if let path = Helpers.findPath(for: valueType, in: spec.components.schemas) {
+                return "\(type)<\(keyType), \(path)>"
+            } else {
+                return "\(type)<\(keyType), \(valueType)>"
+            }
+
         } else if let match = singleComponentResponseRegex.extractCaptureGroupAt(index: 1, from: name) {
-            generic = "SingleComponentResponse"
-            genericTParameter = match
+            let type = "SingleComponentResponse"
+
+            if let path = Helpers.findPath(for: match, in: spec.components.schemas) {
+                return "\(type)<\(path)>"
+            } else {
+                return "\(type)<\(match)>"
+            }
         }
 
-        let swiftType: String
-
-        if let generic, let genericTParameter {
-            if let genericPath = Helpers.findPath(for: genericTParameter, in: spec.components.schemas), !genericPath.isEmpty {
-                swiftType = "\(generic)<\(genericPath)>"
-            } else {
-                swiftType = "\(generic)<\(genericTParameter)>"
-            }
+        if swiftNamespace.isEmpty {
+            return name
         } else {
-            if swiftNamespace.isEmpty {
-                swiftType = name
-            } else {
-                swiftType = "\(swiftNamespace).\(name)"
-            }
+            return "\(swiftNamespace).\(name)"
         }
-
-        return swiftType
     }
 }

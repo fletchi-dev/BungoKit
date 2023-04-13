@@ -24,7 +24,7 @@ public final class BungoClient {
     }
 
     public func send<R: BungoRequest>(_ request: R) async throws -> Response<R.Response> {
-		let data = try await get(request: request.makeURLRequest(baseURL: baseURL.appendingPathComponent("Platform")))
+        let data = try await get(request: request.makeURLRequest(baseURL: baseURL.appendingPathComponent("Platform")))
 
         do {
             return try jsonDecoder.decode(Response<R.Response>.self, from: data)
@@ -32,33 +32,33 @@ public final class BungoClient {
             throw BungoError.decode(error, data)
         }
     }
-	
-	private func get(request: URLRequest) async throws -> Data {
-		try await withCheckedThrowingContinuation { cont in
-			urlSession.dataTask(with: request) { data, _, error in
-				if let error {
-					cont.resume(throwing: BungoError.network(error))
-					return
-				}
 
-				guard let data else {
-					cont.resume(throwing: BungoError.unknown)
-					return
-				}
+    private func get(request: URLRequest) async throws -> Data {
+        try await withCheckedThrowingContinuation { cont in
+            urlSession.dataTask(with: request) { data, _, error in
+                if let error {
+                    cont.resume(throwing: BungoError.network(error))
+                    return
+                }
 
-				cont.resume(returning: data)
-			}.resume()
-		}
-	}
-	
-	public func get(path: String) async throws -> Data {
-		let urlRequest = URLRequest(url: baseURL.appendingPathComponent(path))
-		return try await get(request: urlRequest)
-	}
-	
-	public func url(at path: String) -> URL {
-		baseURL.appendingPathComponent(path)
-	}
+                guard let data else {
+                    cont.resume(throwing: BungoError.unknown)
+                    return
+                }
+
+                cont.resume(returning: data)
+            }.resume()
+        }
+    }
+
+    public func get(path: String) async throws -> Data {
+        let urlRequest = URLRequest(url: baseURL.appendingPathComponent(path))
+        return try await get(request: urlRequest)
+    }
+
+    public func url(at path: String) -> URL {
+        baseURL.appendingPathComponent(path)
+    }
 
     private func makeUrlSession() {
         let sessionConfiguration = URLSessionConfiguration.default

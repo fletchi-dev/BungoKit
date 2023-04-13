@@ -9,7 +9,7 @@ public extension Destiny.Responses {
     struct DestinyVendorsResponse: Codable {
         /// Categories that the vendor has available, and references to the sales therein. These are keyed by the Vendor Hash, so you will get one Categories Component per vendor returned.
         /// COMPONENT TYPE: VendorCategories
-        public var categories: DictionaryComponentResponse<Destiny.Entities.Vendors.DestinyVendorCategoriesComponent>?
+        public var categories: DictionaryComponentResponse<UInt32, Destiny.Entities.Vendors.DestinyVendorCategoriesComponent>?
 
         /// A "lookup" convenience component that can be used to quickly check if the character has access to items that can be used for purchasing.
         /// COMPONENT TYPE: CurrencyLookups
@@ -22,7 +22,7 @@ public extension Destiny.Responses {
         /// Sales, keyed by the vendorItemIndex of the item being sold. These are keyed by the Vendor Hash, so you will get one Sale Item Set Component per vendor returned.
         /// Note that within the Sale Item Set component, the sales are themselves keyed by the vendorSaleIndex, so you can relate it to the corrent sale item definition within the Vendor's definition.
         /// COMPONENT TYPE: VendorSales
-        public var sales: DictionaryComponentResponse<Destiny.Responses.PersonalDestinyVendorSaleItemSetComponent>?
+        public var sales: DictionaryComponentResponse<UInt32, Destiny.Responses.PersonalDestinyVendorSaleItemSetComponent>?
 
         /// A map of string variable values by hash for this character context.
         /// COMPONENT TYPE: StringVariables
@@ -34,7 +34,7 @@ public extension Destiny.Responses {
 
         /// The base properties of the vendor. These are keyed by the Vendor Hash, so you will get one Vendor Component per vendor returned.
         /// COMPONENT TYPE: Vendors
-        public var vendors: DictionaryComponentResponse<Destiny.Entities.Vendors.DestinyVendorComponent>?
+        public var vendors: DictionaryComponentResponse<UInt32, Destiny.Entities.Vendors.DestinyVendorComponent>?
 
         public enum CodingKeys: String, CodingKey {
             case categories
@@ -49,13 +49,13 @@ public extension Destiny.Responses {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            categories = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Vendors.DestinyVendorCategoriesComponent>.self, forKey: CodingKeys.categories)
+            categories = try? container.decode(DictionaryComponentResponse<UInt32, Destiny.Entities.Vendors.DestinyVendorCategoriesComponent>.self, forKey: CodingKeys.categories)
             currencyLookups = try? container.decode(SingleComponentResponse<Destiny.Components.Inventory.DestinyCurrenciesComponent>.self, forKey: CodingKeys.currencyLookups)
             itemComponents = try? container.decode([Int: DestinyItemComponentSetOfint32].self, forKey: CodingKeys.itemComponents)
-            sales = try? container.decode(DictionaryComponentResponse<Destiny.Responses.PersonalDestinyVendorSaleItemSetComponent>.self, forKey: CodingKeys.sales)
+            sales = try? container.decode(DictionaryComponentResponse<UInt32, Destiny.Responses.PersonalDestinyVendorSaleItemSetComponent>.self, forKey: CodingKeys.sales)
             stringVariables = try? container.decode(SingleComponentResponse<Destiny.Components.StringVariables.DestinyStringVariablesComponent>.self, forKey: CodingKeys.stringVariables)
             vendorGroups = try? container.decode(SingleComponentResponse<Destiny.Components.Vendors.DestinyVendorGroupComponent>.self, forKey: CodingKeys.vendorGroups)
-            vendors = try? container.decode(DictionaryComponentResponse<Destiny.Entities.Vendors.DestinyVendorComponent>.self, forKey: CodingKeys.vendors)
+            vendors = try? container.decode(DictionaryComponentResponse<UInt32, Destiny.Entities.Vendors.DestinyVendorComponent>.self, forKey: CodingKeys.vendors)
         }
     }
 }
