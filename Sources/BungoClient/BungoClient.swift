@@ -29,7 +29,7 @@ public final class BungoClient {
         do {
             return try jsonDecoder.decode(Response<R.Response>.self, from: data)
         } catch {
-            throw BungoError.decode(error, data)
+            throw BungoClientError.decode(error, data)
         }
     }
 
@@ -37,17 +37,17 @@ public final class BungoClient {
         try await withCheckedThrowingContinuation { cont in
             urlSession.dataTask(with: request) { data, response, error in
                 if let error {
-                    cont.resume(throwing: BungoError.network(error))
+                    cont.resume(throwing: BungoClientError.network(error))
                     return
                 }
 
                 if let response = response as? HTTPURLResponse, response.statusCode == 401 {
-                    cont.resume(throwing: BungoError.unauthorized)
+                    cont.resume(throwing: BungoClientError.unauthorized)
                     return
                 }
 
                 guard let data else {
-                    cont.resume(throwing: BungoError.unknown)
+                    cont.resume(throwing: BungoClientError.unknown)
                     return
                 }
 
@@ -73,7 +73,7 @@ public final class BungoClient {
         sessionConfiguration.httpShouldSetCookies = true
         sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         sessionConfiguration.httpAdditionalHeaders = [
-            "Authorization": "Bearer \(token)abc",
+            "Authorization": "Bearer \(token)",
             "X-API-KEY": configuration.apiKey,
             "Accept": "application/json",
         ]

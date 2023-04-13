@@ -1,6 +1,6 @@
 import Foundation
 
-public enum BungoError: Error {
+public enum BungoClientError: Error {
     case couldNotDecodeDate(String)
     case network(Error)
     case decode(Error, Data)

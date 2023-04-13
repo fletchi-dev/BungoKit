@@ -14,6 +14,10 @@ let package = Package(
             targets: ["BungoCodeGen"]
         ),
         .library(
+            name: "BungoKit",
+            targets: ["BungoKit"]
+        ),
+        .library(
             name: "BungoClient",
             targets: ["BungoClient"]
         ),
@@ -40,6 +44,13 @@ let package = Package(
         .package(url: "https://github.com/SwiftGen/StencilSwiftKit", from: "2.10.1"),
     ],
     targets: [
+        .target(name: "BungoKit",
+                dependencies: [
+                    "BungoModels",
+                    "BungoClient",
+                    "BungoAuth",
+                    "BungoManifest",
+                ]),
         .executableTarget(
             name: "BungoCodeGen",
             dependencies: [

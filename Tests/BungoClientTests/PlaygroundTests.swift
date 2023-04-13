@@ -9,7 +9,7 @@ final class PlaygroundTests: XCTestCase {
             let response = try await client.send(req)
 
             print(response)
-        } catch let BungoError.decode(e, data) {
+        } catch let BungoClientError.decode(e, data) {
             print("ERROR: \(e)")
             print(String(data: data, encoding: .utf8)!)
         } catch {

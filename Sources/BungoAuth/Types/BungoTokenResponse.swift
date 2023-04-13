@@ -1,6 +1,6 @@
 import Foundation
 
-public struct BungoTokenResponse: Decodable {
+public struct BungoTokenResponse: Codable {
     public let accessToken: String
     public let tokenType: String
     public let expiresIn: Int
