@@ -1,6 +1,6 @@
 import Foundation
 
-enum BungoLocale: String, Codable {
+public enum BungoLocale: String, Codable {
     case en
     case fr
     case es
