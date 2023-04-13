@@ -7,4 +7,5 @@ public enum BungoError: Error {
     case unknown
     case invalidResponse
     case invalidStatus(actual: Int, expected: Int)
+    case unauthorized
 }

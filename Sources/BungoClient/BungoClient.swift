@@ -35,9 +35,14 @@ public final class BungoClient {
 
     private func get(request: URLRequest) async throws -> Data {
         try await withCheckedThrowingContinuation { cont in
-            urlSession.dataTask(with: request) { data, _, error in
+            urlSession.dataTask(with: request) { data, response, error in
                 if let error {
                     cont.resume(throwing: BungoError.network(error))
+                    return
+                }
+
+                if let response = response as? HTTPURLResponse, response.statusCode == 401 {
+                    cont.resume(throwing: BungoError.unauthorized)
                     return
                 }
 
@@ -68,7 +73,7 @@ public final class BungoClient {
         sessionConfiguration.httpShouldSetCookies = true
         sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         sessionConfiguration.httpAdditionalHeaders = [
-            "Authorization": "Bearer \(token)",
+            "Authorization": "Bearer \(token)abc",
             "X-API-KEY": configuration.apiKey,
             "Accept": "application/json",
         ]
