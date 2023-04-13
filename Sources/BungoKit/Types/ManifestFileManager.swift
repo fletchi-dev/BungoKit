@@ -51,12 +51,7 @@ final class ManifestFileManager {
 
     func url(for locale: BungoLocale) -> URL {
         let filename = makeFilename(for: locale)
-
-        if #available(iOS 16.0, *) {
-            return baseURL.appending(path: filename)
-        } else {
-            return baseURL.appendingPathComponent(filename)
-        }
+        return baseURL.appending(filename)
     }
 
     private func makeKey(for locale: BungoLocale) -> String {
@@ -78,10 +73,6 @@ final class ManifestFileManager {
     }
 
     private func makePath(for locale: BungoLocale) -> String {
-        if #available(iOS 16.0, *) {
-            return url(for: locale).path()
-        } else {
-            return url(for: locale).path
-        }
+        url(for: locale).safePath
     }
 }
