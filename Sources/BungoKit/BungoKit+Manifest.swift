@@ -15,15 +15,12 @@ public extension BungoKit {
         else {
             if let fallback {
                 do {
-                    print("using local manifest")
                     return try BungoManifest(at: fallback.url.safePath)
                 } catch {
-                    print("couldn't get a manifest")
                     throw BungoKitError.manifest(error)
                 }
             }
 
-            print("couldn't find a manifest")
             throw BungoKitError.notFound
         }
 
@@ -39,11 +36,9 @@ public extension BungoKit {
 
             manifestFileManager.store(version: version, for: locale)
         } catch {
-            print("couldn't initialize manifest")
             throw BungoKitError.manifest(error)
         }
 
-        print("got new manifest")
         manifests[locale] = Manifest(version: version, client: manifest)
 
         return manifest
