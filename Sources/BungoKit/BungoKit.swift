@@ -11,6 +11,7 @@ public final class BungoKit {
     let auth: BungoAuth
     let api: BungoClient
     var manifests: [BungoLocale: Manifest] = [:]
+    var manifestResponseCache: ManifestResponseCache?
 
     public var token: BungoTokenResponse? {
         didSet {

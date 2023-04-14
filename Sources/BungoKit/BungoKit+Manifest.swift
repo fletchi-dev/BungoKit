@@ -3,12 +3,34 @@ import BungoModels
 import Foundation
 
 public extension BungoKit {
+    private func loadManifest() async throws -> Requests.Destiny2.GetDestinyManifestRequest.Response? {
+        if let manifestResponseCache {
+            if Date().timeIntervalSince(manifestResponseCache.date) > 1800 {
+                guard let data = try await api.send(Requests.Destiny2.GetDestinyManifestRequest()).response else {
+                    return nil
+                }
+
+                self.manifestResponseCache = ManifestResponseCache(data: data)
+                return data
+            }
+
+            return manifestResponseCache.data
+        }
+
+        guard let data = try await api.send(Requests.Destiny2.GetDestinyManifestRequest()).response else {
+            return nil
+        }
+
+        manifestResponseCache = ManifestResponseCache(data: data)
+        return data
+    }
+
     private func initializeManifestIfNeeded(locale overrideLocale: BungoLocale? = nil) async throws -> BungoManifest {
         let locale = overrideLocale ?? locale
         let fallback = manifestFileManager.manifestInfo(for: locale)
 
         guard
-            let response = try? await api.send(Requests.Destiny2.GetDestinyManifestRequest()).response,
+            let response = try? await loadManifest(),
             let version = response.version,
             let path = response.mobileWorldContentPaths?[locale.rawValue],
             version != fallback?.version
