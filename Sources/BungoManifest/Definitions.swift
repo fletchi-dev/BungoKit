@@ -32,3 +32,27 @@ public struct InventoryItemDefinition: ManifestDefinition {
 
     public init() {}
 }
+
+public struct DestinyPresentationNodeDefinition: ManifestDefinition {
+    public typealias Result = Destiny.Definitions.Presentation.DestinyPresentationNodeDefinition
+
+    public let table: String = "DestinyPresentationNodeDefinition"
+
+    public init() {}
+}
+
+public struct DestinyRecordDefinition: ManifestDefinition {
+    public typealias Result = Destiny.Definitions.Records.DestinyRecordDefinition
+
+    public let table: String = "DestinyRecordDefinition"
+
+    public init() {}
+}
+
+public struct DestinyCollectibleDefinition: ManifestDefinition {
+    public typealias Result = Destiny.Definitions.Collectibles.DestinyCollectibleDefinition
+
+    public let table: String = "DestinyCollectibleDefinition"
+
+    public init() {}
+}
