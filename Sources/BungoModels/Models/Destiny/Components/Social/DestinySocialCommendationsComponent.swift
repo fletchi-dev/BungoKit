@@ -6,9 +6,9 @@ import Foundation
 
 public extension Destiny.Components.Social {
     struct DestinySocialCommendationsComponent: Codable {
-        public var commendationNodeScoresByHash: [Int: Int32]?
+        public var commendationNodeScoresByHash: [UInt32: Int32]?
 
-        public var commendationScoresByHash: [Int: Int32]?
+        public var commendationScoresByHash: [UInt32: Int32]?
 
         public var scoreDetailValues: [Int32]?
 
@@ -24,8 +24,8 @@ public extension Destiny.Components.Social {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            commendationNodeScoresByHash = try? container.decode([Int: Int32].self, forKey: CodingKeys.commendationNodeScoresByHash)
-            commendationScoresByHash = try? container.decode([Int: Int32].self, forKey: CodingKeys.commendationScoresByHash)
+            commendationNodeScoresByHash = try? container.decode([UInt32: Int32].self, forKey: CodingKeys.commendationNodeScoresByHash)
+            commendationScoresByHash = try? container.decode([UInt32: Int32].self, forKey: CodingKeys.commendationScoresByHash)
             scoreDetailValues = try? container.decode([Int32].self, forKey: CodingKeys.scoreDetailValues)
             totalScore = try? container.decode(Int32.self, forKey: CodingKeys.totalScore)
         }

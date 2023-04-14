@@ -13,9 +13,9 @@ public extension Destiny.Definitions {
         public var displayProperties: Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition?
 
         /// A localized string referring to the singular form of the Class's name when referred to in gendered form. Keyed by the DestinyGender.
-        public var genderedClassNames: [Int: String]?
+        public var genderedClassNames: [Int32: String]?
 
-        public var genderedClassNamesByGenderHash: [Int: String]?
+        public var genderedClassNamesByGenderHash: [UInt32: String]?
 
         /// The unique identifier for this entity. Guaranteed to be unique for the type of entity, but not globally.
         /// When entities refer to each other in Destiny content, it is this hash that they are referring to.
@@ -46,8 +46,8 @@ public extension Destiny.Definitions {
 
             classType = try? container.decode(Destiny.DestinyClass.self, forKey: CodingKeys.classType)
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
-            genderedClassNames = try? container.decode([Int: String].self, forKey: CodingKeys.genderedClassNames)
-            genderedClassNamesByGenderHash = try? container.decode([Int: String].self, forKey: CodingKeys.genderedClassNamesByGenderHash)
+            genderedClassNames = try? container.decode([Int32: String].self, forKey: CodingKeys.genderedClassNames)
+            genderedClassNamesByGenderHash = try? container.decode([UInt32: String].self, forKey: CodingKeys.genderedClassNamesByGenderHash)
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
             mentorVendorHash = try? container.decode(UInt32.self, forKey: CodingKeys.mentorVendorHash)

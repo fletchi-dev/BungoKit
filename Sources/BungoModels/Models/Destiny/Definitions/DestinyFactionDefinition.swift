@@ -30,7 +30,7 @@ public extension Destiny.Definitions {
         public var rewardVendorHash: UInt32?
 
         /// The faction token item hashes, and their respective progression values.
-        public var tokenValues: [Int: UInt32]?
+        public var tokenValues: [UInt32: UInt32]?
 
         /// List of vendors that are associated with this faction. The last vendor that passes the unlock flag checks is the one that should be shown.
         public var vendors: [Destiny.Definitions.DestinyFactionVendorDefinition]?
@@ -57,7 +57,7 @@ public extension Destiny.Definitions {
             redacted = try? container.decode(Bool.self, forKey: CodingKeys.redacted)
             rewardItemHash = try? container.decode(UInt32.self, forKey: CodingKeys.rewardItemHash)
             rewardVendorHash = try? container.decode(UInt32.self, forKey: CodingKeys.rewardVendorHash)
-            tokenValues = try? container.decode([Int: UInt32].self, forKey: CodingKeys.tokenValues)
+            tokenValues = try? container.decode([UInt32: UInt32].self, forKey: CodingKeys.tokenValues)
             vendors = try? container.decode([Destiny.Definitions.DestinyFactionVendorDefinition].self, forKey: CodingKeys.vendors)
         }
     }

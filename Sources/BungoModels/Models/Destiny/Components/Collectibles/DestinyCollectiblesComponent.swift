@@ -6,7 +6,7 @@ import Foundation
 
 public extension Destiny.Components.Collectibles {
     struct DestinyCollectiblesComponent: Codable {
-        public var collectibles: [Int: Destiny.Components.Collectibles.DestinyCollectibleComponent]?
+        public var collectibles: [UInt32: Destiny.Components.Collectibles.DestinyCollectibleComponent]?
 
         /// The hash for the root presentation node definition of Collection Badges.
         public var collectionBadgesRootNodeHash: UInt32?
@@ -23,7 +23,7 @@ public extension Destiny.Components.Collectibles {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            collectibles = try? container.decode([Int: Destiny.Components.Collectibles.DestinyCollectibleComponent].self, forKey: CodingKeys.collectibles)
+            collectibles = try? container.decode([UInt32: Destiny.Components.Collectibles.DestinyCollectibleComponent].self, forKey: CodingKeys.collectibles)
             collectionBadgesRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.collectionBadgesRootNodeHash)
             collectionCategoriesRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.collectionCategoriesRootNodeHash)
         }

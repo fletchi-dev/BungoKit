@@ -12,7 +12,7 @@ public extension Destiny.Definitions {
         public var activityModeCategory: Destiny.DestinyActivityModeCategory?
 
         /// If this exists, the mode has specific Activities (referred to by the Key) that should instead map to other Activity Modes when they are played. This was useful in D1 for Private Matches, where we wanted to have Private Matches as an activity mode while still referring to the specific mode being played.
-        public var activityModeMappings: [Int: Destiny.HistoricalStats.Definitions.DestinyActivityModeType]?
+        public var activityModeMappings: [UInt32: Destiny.HistoricalStats.Definitions.DestinyActivityModeType]?
 
         /// If FALSE, we want to ignore this type when we're showing activity modes in BNet UI. It will still be returned in case 3rd parties want to use it for any purpose.
         public var display: Bool?
@@ -72,7 +72,7 @@ public extension Destiny.Definitions {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             activityModeCategory = try? container.decode(Destiny.DestinyActivityModeCategory.self, forKey: CodingKeys.activityModeCategory)
-            activityModeMappings = try? container.decode([Int: Destiny.HistoricalStats.Definitions.DestinyActivityModeType].self, forKey: CodingKeys.activityModeMappings)
+            activityModeMappings = try? container.decode([UInt32: Destiny.HistoricalStats.Definitions.DestinyActivityModeType].self, forKey: CodingKeys.activityModeMappings)
             display = try? container.decode(Bool.self, forKey: CodingKeys.display)
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
             friendlyName = try? container.decode(String.self, forKey: CodingKeys.friendlyName)

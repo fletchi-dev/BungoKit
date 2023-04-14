@@ -131,7 +131,7 @@ struct ObjectRenderer {
 
             if let keyObject = schema.metadata.json["x-dictionary-key"] {
                 if let keyObject = keyObject as? [AnyHashable: Any],
-                   let keyType = keyObject["type"]
+                   let keyType = (keyObject["format"] as? String) ?? keyObject["type"]
                 {
                     let additionalName = resolveSchemaType(schema: additionalProperties)
 
@@ -160,9 +160,23 @@ struct ObjectRenderer {
     private func mapType(type: String) -> String {
         switch type.lowercased() {
         case "string":
-            return "String"
-        case "integer":
-            return "Int"
+			return "String"
+		case "uint8":
+			return "UInt8"
+		case "uint16":
+			return "UInt16"
+		case "uint32":
+			return "UInt32"
+		case "uint64":
+			return "UInt64"
+		case "int8":
+			return "Int8"
+		case "int16":
+			return "Int16"
+		case "int32":
+			return "Int32"
+		case "int64":
+			return "Int64"
         default:
             fatalError("unexpected type: \(type)")
         }

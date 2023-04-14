@@ -10,7 +10,7 @@ public extension Destiny.Components.Profiles {
     struct DestinyProfileProgressionComponent: Codable {
         /// The set of checklists that can be examined on a profile-wide basis, keyed by the hash identifier of the Checklist (DestinyChecklistDefinition)
         /// For each checklist returned, its value is itself a Dictionary keyed by the checklist's hash identifier with the value being a boolean indicating if it's been discovered yet.
-        public var checklists: [Int: [Int: Bool]]?
+        public var checklists: [UInt32: [UInt32: Bool]]?
 
         /// Data related to your progress on the current season's artifact that is the same across characters.
         public var seasonalArtifact: Destiny.Artifacts.DestinyArtifactProfileScoped?
@@ -23,7 +23,7 @@ public extension Destiny.Components.Profiles {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            checklists = try? container.decode([Int: [Int: Bool]].self, forKey: CodingKeys.checklists)
+            checklists = try? container.decode([UInt32: [UInt32: Bool]].self, forKey: CodingKeys.checklists)
             seasonalArtifact = try? container.decode(Destiny.Artifacts.DestinyArtifactProfileScoped.self, forKey: CodingKeys.seasonalArtifact)
         }
     }

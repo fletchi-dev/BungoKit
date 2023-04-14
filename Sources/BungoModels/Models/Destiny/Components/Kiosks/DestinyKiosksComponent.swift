@@ -10,7 +10,7 @@ public extension Destiny.Components.Kiosks {
     /// Note that, because this component returns vendorItemIndexes (that is to say, indexes into the Kiosk Vendor's itemList property), these results are necessarily content version dependent. Make sure that you have the latest version of the content manifest databases before using this data.
     struct DestinyKiosksComponent: Codable {
         /// A dictionary keyed by the Kiosk Vendor's hash identifier (use it to look up the DestinyVendorDefinition for the relevant kiosk vendor), and whose value is a list of all the items that the user can "see" in the Kiosk, and any other interesting metadata.
-        public var kioskItems: [Int: [Destiny.Components.Kiosks.DestinyKioskItem]]?
+        public var kioskItems: [UInt32: [Destiny.Components.Kiosks.DestinyKioskItem]]?
 
         public enum CodingKeys: String, CodingKey {
             case kioskItems
@@ -19,7 +19,7 @@ public extension Destiny.Components.Kiosks {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            kioskItems = try? container.decode([Int: [Destiny.Components.Kiosks.DestinyKioskItem]].self, forKey: CodingKeys.kioskItems)
+            kioskItems = try? container.decode([UInt32: [Destiny.Components.Kiosks.DestinyKioskItem]].self, forKey: CodingKeys.kioskItems)
         }
     }
 }

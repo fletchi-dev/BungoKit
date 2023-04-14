@@ -10,9 +10,9 @@ public extension Destiny.Definitions {
         public var displayProperties: Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition?
 
         /// A localized string referring to the singular form of the Race's name when referred to in gendered form. Keyed by the DestinyGender.
-        public var genderedRaceNames: [Int: String]?
+        public var genderedRaceNames: [Int32: String]?
 
-        public var genderedRaceNamesByGenderHash: [Int: String]?
+        public var genderedRaceNamesByGenderHash: [UInt32: String]?
 
         /// The unique identifier for this entity. Guaranteed to be unique for the type of entity, but not globally.
         /// When entities refer to each other in Destiny content, it is this hash that they are referring to.
@@ -41,8 +41,8 @@ public extension Destiny.Definitions {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
-            genderedRaceNames = try? container.decode([Int: String].self, forKey: CodingKeys.genderedRaceNames)
-            genderedRaceNamesByGenderHash = try? container.decode([Int: String].self, forKey: CodingKeys.genderedRaceNamesByGenderHash)
+            genderedRaceNames = try? container.decode([Int32: String].self, forKey: CodingKeys.genderedRaceNames)
+            genderedRaceNamesByGenderHash = try? container.decode([UInt32: String].self, forKey: CodingKeys.genderedRaceNamesByGenderHash)
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
             raceType = try? container.decode(Destiny.DestinyRace.self, forKey: CodingKeys.raceType)

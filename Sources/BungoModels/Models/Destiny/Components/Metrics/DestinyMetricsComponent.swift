@@ -6,7 +6,7 @@ import Foundation
 
 public extension Destiny.Components.Metrics {
     struct DestinyMetricsComponent: Codable {
-        public var metrics: [Int: Destiny.Components.Metrics.DestinyMetricComponent]?
+        public var metrics: [UInt32: Destiny.Components.Metrics.DestinyMetricComponent]?
 
         public var metricsRootNodeHash: UInt32?
 
@@ -18,7 +18,7 @@ public extension Destiny.Components.Metrics {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            metrics = try? container.decode([Int: Destiny.Components.Metrics.DestinyMetricComponent].self, forKey: CodingKeys.metrics)
+            metrics = try? container.decode([UInt32: Destiny.Components.Metrics.DestinyMetricComponent].self, forKey: CodingKeys.metrics)
             metricsRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.metricsRootNodeHash)
         }
     }

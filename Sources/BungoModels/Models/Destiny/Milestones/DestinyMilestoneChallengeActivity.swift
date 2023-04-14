@@ -12,7 +12,7 @@ public extension Destiny.Milestones {
         /// As a concrete example of this data, the hashes you get for Raids will correspond to the currently active "Challenge Mode".
         /// We don't have any human readable information for these, but saavy 3rd party app users could manually associate the key (a hash identifier for the "option" that is enabled/disabled) and the value (whether it's enabled or disabled presently)
         /// On our side, we don't necessarily even know what these are used for (the game designers know, but we don't), and we have no human readable data for them. In order to use them, you will have to do some experimentation.
-        public var booleanActivityOptions: [Int: Bool]?
+        public var booleanActivityOptions: [UInt32: Bool]?
 
         public var challenges: [Destiny.Challenges.DestinyChallengeStatus]?
 
@@ -39,7 +39,7 @@ public extension Destiny.Milestones {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             activityHash = try? container.decode(UInt32.self, forKey: CodingKeys.activityHash)
-            booleanActivityOptions = try? container.decode([Int: Bool].self, forKey: CodingKeys.booleanActivityOptions)
+            booleanActivityOptions = try? container.decode([UInt32: Bool].self, forKey: CodingKeys.booleanActivityOptions)
             challenges = try? container.decode([Destiny.Challenges.DestinyChallengeStatus].self, forKey: CodingKeys.challenges)
             loadoutRequirementIndex = try? container.decode(Int32.self, forKey: CodingKeys.loadoutRequirementIndex)
             modifierHashes = try? container.decode([UInt32].self, forKey: CodingKeys.modifierHashes)

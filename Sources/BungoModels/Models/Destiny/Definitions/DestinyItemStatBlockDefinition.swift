@@ -26,7 +26,7 @@ public extension Destiny.Definitions {
 
         /// If you are looking for precomputed values for the stats on a weapon, this is where they are stored. Technically these are the "Display" stat values. Please see DestinyStatsDefinition for what Display Stat Values means, it's a very long story... but essentially these are the closest values BNet can get to the item stats that you see in-game.
         /// These stats are keyed by the DestinyStatDefinition's hash identifier for the stat that's found on the item.
-        public var stats: [Int: Destiny.Definitions.DestinyInventoryItemStatDefinition]?
+        public var stats: [UInt32: Destiny.Definitions.DestinyInventoryItemStatDefinition]?
 
         public enum CodingKeys: String, CodingKey {
             case disablePrimaryStatDisplay
@@ -43,7 +43,7 @@ public extension Destiny.Definitions {
             hasDisplayableStats = try? container.decode(Bool.self, forKey: CodingKeys.hasDisplayableStats)
             primaryBaseStatHash = try? container.decode(UInt32.self, forKey: CodingKeys.primaryBaseStatHash)
             statGroupHash = try? container.decode(UInt32.self, forKey: CodingKeys.statGroupHash)
-            stats = try? container.decode([Int: Destiny.Definitions.DestinyInventoryItemStatDefinition].self, forKey: CodingKeys.stats)
+            stats = try? container.decode([UInt32: Destiny.Definitions.DestinyInventoryItemStatDefinition].self, forKey: CodingKeys.stats)
         }
     }
 }

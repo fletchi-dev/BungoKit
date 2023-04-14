@@ -67,7 +67,7 @@ public extension Destiny.Responses {
         /// Unfortunately, we don't live in such a magical world anymore. This is information held on a per-character basis about non-instanced items that the characters have in their inventory - or that reference character-specific state information even if it's in Account-level inventory - and the values related to that item's state in relation to the given character.
         /// To give a concrete example, look at a Moments of Triumph bounty. They exist in a character's inventory, and show/care about a character's progression toward completing the bounty. But the bounty itself is a non-instanced item, like a mod or a currency. This returns that data for the characters who have the bounty in their inventory.
         /// I'm not crying, you're crying Okay we're both crying but it's going to be okay I promise Actually I shouldn't promise that, I don't know if it's going to be okay
-        public var characterUninstancedItemComponents: [Int: DestinyBaseItemComponentSetOfuint32]?
+        public var characterUninstancedItemComponents: [Int64: DestinyBaseItemComponentSetOfuint32]?
 
         /// Basic information about each character, keyed by the CharacterId.
         /// COMPONENT TYPE: Characters
@@ -194,7 +194,7 @@ public extension Destiny.Responses {
             characterRecords = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.Records.DestinyCharacterRecordsComponent>.self, forKey: CodingKeys.characterRecords)
             characterRenderData = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterRenderComponent>.self, forKey: CodingKeys.characterRenderData)
             characterStringVariables = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.StringVariables.DestinyStringVariablesComponent>.self, forKey: CodingKeys.characterStringVariables)
-            characterUninstancedItemComponents = try? container.decode([Int: DestinyBaseItemComponentSetOfuint32].self, forKey: CodingKeys.characterUninstancedItemComponents)
+            characterUninstancedItemComponents = try? container.decode([Int64: DestinyBaseItemComponentSetOfuint32].self, forKey: CodingKeys.characterUninstancedItemComponents)
             characters = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterComponent>.self, forKey: CodingKeys.characters)
             itemComponents = try? container.decode(DestinyItemComponentSetOfint64.self, forKey: CodingKeys.itemComponents)
             metrics = try? container.decode(SingleComponentResponse<Destiny.Components.Metrics.DestinyMetricsComponent>.self, forKey: CodingKeys.metrics)

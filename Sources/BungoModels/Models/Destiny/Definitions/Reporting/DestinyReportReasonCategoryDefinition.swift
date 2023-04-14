@@ -18,7 +18,7 @@ public extension Destiny.Definitions.Reporting {
         public var index: Int32?
 
         /// The specific reasons for the report under this category.
-        public var reasons: [Int: Destiny.Definitions.Reporting.DestinyReportReasonDefinition]?
+        public var reasons: [UInt32: Destiny.Definitions.Reporting.DestinyReportReasonDefinition]?
 
         /// If this is true, then there is an entity with this identifier/type combination, but BNet is not yet allowed to show it. Sorry!
         public var redacted: Bool?
@@ -37,7 +37,7 @@ public extension Destiny.Definitions.Reporting {
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
-            reasons = try? container.decode([Int: Destiny.Definitions.Reporting.DestinyReportReasonDefinition].self, forKey: CodingKeys.reasons)
+            reasons = try? container.decode([UInt32: Destiny.Definitions.Reporting.DestinyReportReasonDefinition].self, forKey: CodingKeys.reasons)
             redacted = try? container.decode(Bool.self, forKey: CodingKeys.redacted)
         }
     }

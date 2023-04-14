@@ -10,10 +10,10 @@ public extension Destiny.Definitions.Records {
 
         public var hasTitle: Bool?
 
-        public var titlesByGender: [Int: String]?
+        public var titlesByGender: [Int32: String]?
 
         /// For those who prefer to use the definitions.
-        public var titlesByGenderHash: [Int: String]?
+        public var titlesByGenderHash: [UInt32: String]?
 
         public enum CodingKeys: String, CodingKey {
             case gildingTrackingRecordHash
@@ -27,8 +27,8 @@ public extension Destiny.Definitions.Records {
 
             gildingTrackingRecordHash = try? container.decode(UInt32.self, forKey: CodingKeys.gildingTrackingRecordHash)
             hasTitle = try? container.decode(Bool.self, forKey: CodingKeys.hasTitle)
-            titlesByGender = try? container.decode([Int: String].self, forKey: CodingKeys.titlesByGender)
-            titlesByGenderHash = try? container.decode([Int: String].self, forKey: CodingKeys.titlesByGenderHash)
+            titlesByGender = try? container.decode([Int32: String].self, forKey: CodingKeys.titlesByGender)
+            titlesByGenderHash = try? container.decode([UInt32: String].self, forKey: CodingKeys.titlesByGenderHash)
         }
     }
 }

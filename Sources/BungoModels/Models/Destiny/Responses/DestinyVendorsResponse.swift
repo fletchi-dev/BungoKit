@@ -17,7 +17,7 @@ public extension Destiny.Responses {
 
         /// The set of item detail components, one set of item components per Vendor. These are keyed by the Vendor Hash, so you will get one Item Component Set per vendor returned.
         /// The components contained inside are themselves keyed by the vendorSaleIndex, and will have whatever item-level components you requested (Sockets, Stats, Instance data etc...) per item being sold by the vendor.
-        public var itemComponents: [Int: DestinyItemComponentSetOfint32]?
+        public var itemComponents: [UInt32: DestinyItemComponentSetOfint32]?
 
         /// Sales, keyed by the vendorItemIndex of the item being sold. These are keyed by the Vendor Hash, so you will get one Sale Item Set Component per vendor returned.
         /// Note that within the Sale Item Set component, the sales are themselves keyed by the vendorSaleIndex, so you can relate it to the corrent sale item definition within the Vendor's definition.
@@ -51,7 +51,7 @@ public extension Destiny.Responses {
 
             categories = try? container.decode(DictionaryComponentResponse<UInt32, Destiny.Entities.Vendors.DestinyVendorCategoriesComponent>.self, forKey: CodingKeys.categories)
             currencyLookups = try? container.decode(SingleComponentResponse<Destiny.Components.Inventory.DestinyCurrenciesComponent>.self, forKey: CodingKeys.currencyLookups)
-            itemComponents = try? container.decode([Int: DestinyItemComponentSetOfint32].self, forKey: CodingKeys.itemComponents)
+            itemComponents = try? container.decode([UInt32: DestinyItemComponentSetOfint32].self, forKey: CodingKeys.itemComponents)
             sales = try? container.decode(DictionaryComponentResponse<UInt32, Destiny.Responses.PersonalDestinyVendorSaleItemSetComponent>.self, forKey: CodingKeys.sales)
             stringVariables = try? container.decode(SingleComponentResponse<Destiny.Components.StringVariables.DestinyStringVariablesComponent>.self, forKey: CodingKeys.stringVariables)
             vendorGroups = try? container.decode(SingleComponentResponse<Destiny.Components.Vendors.DestinyVendorGroupComponent>.self, forKey: CodingKeys.vendorGroups)

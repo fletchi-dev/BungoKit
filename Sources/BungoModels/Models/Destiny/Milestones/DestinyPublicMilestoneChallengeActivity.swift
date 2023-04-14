@@ -11,7 +11,7 @@ public extension Destiny.Milestones {
         /// The set of activity options for this activity, keyed by an identifier that's unique for this activity (not guaranteed to be unique between or across all activities, though should be unique for every *variant* of a given *conceptual* activity: for instance, the original D2 Raid has many variant DestinyActivityDefinitions. While other activities could potentially have the same option hashes, for any given D2 base Raid variant the hash will be unique).
         /// As a concrete example of this data, the hashes you get for Raids will correspond to the currently active "Challenge Mode".
         /// We have no human readable information for this data, so it's up to you if you want to associate it with such info to show it.
-        public var booleanActivityOptions: [Int: Bool]?
+        public var booleanActivityOptions: [UInt32: Bool]?
 
         public var challengeObjectiveHashes: [UInt32]?
 
@@ -38,7 +38,7 @@ public extension Destiny.Milestones {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             activityHash = try? container.decode(UInt32.self, forKey: CodingKeys.activityHash)
-            booleanActivityOptions = try? container.decode([Int: Bool].self, forKey: CodingKeys.booleanActivityOptions)
+            booleanActivityOptions = try? container.decode([UInt32: Bool].self, forKey: CodingKeys.booleanActivityOptions)
             challengeObjectiveHashes = try? container.decode([UInt32].self, forKey: CodingKeys.challengeObjectiveHashes)
             loadoutRequirementIndex = try? container.decode(Int32.self, forKey: CodingKeys.loadoutRequirementIndex)
             modifierHashes = try? container.decode([UInt32].self, forKey: CodingKeys.modifierHashes)

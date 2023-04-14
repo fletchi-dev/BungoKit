@@ -12,7 +12,7 @@ public extension Destiny.Components.Records {
         /// The hash for the root presentation node definition of Triumph Seals.
         public var recordSealsRootNodeHash: UInt32?
 
-        public var records: [Int: Destiny.Components.Records.DestinyRecordComponent]?
+        public var records: [UInt32: Destiny.Components.Records.DestinyRecordComponent]?
 
         public enum CodingKeys: String, CodingKey {
             case recordCategoriesRootNodeHash
@@ -25,7 +25,7 @@ public extension Destiny.Components.Records {
 
             recordCategoriesRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.recordCategoriesRootNodeHash)
             recordSealsRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.recordSealsRootNodeHash)
-            records = try? container.decode([Int: Destiny.Components.Records.DestinyRecordComponent].self, forKey: CodingKeys.records)
+            records = try? container.decode([UInt32: Destiny.Components.Records.DestinyRecordComponent].self, forKey: CodingKeys.records)
         }
     }
 }

@@ -22,7 +22,7 @@ public extension Destiny.Definitions {
 
         /// Talent Nodes can have "Exclusive Groups". These are not to be confused with Exclusive Sets (see exclusiveSets property).
         /// Look at the definition of DestinyTalentExclusiveGroup for more information and how they work. These groups are keyed by the "groupHash" from DestinyTalentExclusiveGroup.
-        public var groups: [Int: Destiny.Definitions.DestinyTalentExclusiveGroup]?
+        public var groups: [UInt32: Destiny.Definitions.DestinyTalentExclusiveGroup]?
 
         /// The unique identifier for this entity. Guaranteed to be unique for the type of entity, but not globally.
         /// When entities refer to each other in Destiny content, it is this hash that they are referring to.
@@ -69,7 +69,7 @@ public extension Destiny.Definitions {
 
             exclusiveSets = try? container.decode([Destiny.Definitions.DestinyTalentNodeExclusiveSetDefinition].self, forKey: CodingKeys.exclusiveSets)
             gridLevelPerColumn = try? container.decode(Int32.self, forKey: CodingKeys.gridLevelPerColumn)
-            groups = try? container.decode([Int: Destiny.Definitions.DestinyTalentExclusiveGroup].self, forKey: CodingKeys.groups)
+            groups = try? container.decode([UInt32: Destiny.Definitions.DestinyTalentExclusiveGroup].self, forKey: CodingKeys.groups)
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             independentNodeIndexes = try? container.decode([Int32].self, forKey: CodingKeys.independentNodeIndexes)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)

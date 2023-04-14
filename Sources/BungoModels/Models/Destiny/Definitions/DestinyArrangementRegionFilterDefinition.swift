@@ -6,7 +6,7 @@ import Foundation
 
 public extension Destiny.Definitions {
     struct DestinyArrangementRegionFilterDefinition: Codable {
-        public var arrangementIndexByStatValue: [Int: Int32]?
+        public var arrangementIndexByStatValue: [Int32: Int32]?
 
         public var artArrangementRegionHash: UInt32?
 
@@ -24,7 +24,7 @@ public extension Destiny.Definitions {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            arrangementIndexByStatValue = try? container.decode([Int: Int32].self, forKey: CodingKeys.arrangementIndexByStatValue)
+            arrangementIndexByStatValue = try? container.decode([Int32: Int32].self, forKey: CodingKeys.arrangementIndexByStatValue)
             artArrangementRegionHash = try? container.decode(UInt32.self, forKey: CodingKeys.artArrangementRegionHash)
             artArrangementRegionIndex = try? container.decode(Int32.self, forKey: CodingKeys.artArrangementRegionIndex)
             statHash = try? container.decode(UInt32.self, forKey: CodingKeys.statHash)

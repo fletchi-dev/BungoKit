@@ -10,7 +10,7 @@ public extension Destiny.Entities.Items {
     /// Note that some stats have additional computation in-game at runtime - for instance, Magazine Size - and thus these stats might not be 100% accurate compared to what you see in-game for some stats. I know, it sucks. I hate it too.
     struct DestinyItemStatsComponent: Codable {
         /// If the item has stats that it provides (damage, defense, etc...), it will be given here.
-        public var stats: [Int: Destiny.DestinyStat]?
+        public var stats: [UInt32: Destiny.DestinyStat]?
 
         public enum CodingKeys: String, CodingKey {
             case stats
@@ -19,7 +19,7 @@ public extension Destiny.Entities.Items {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            stats = try? container.decode([Int: Destiny.DestinyStat].self, forKey: CodingKeys.stats)
+            stats = try? container.decode([UInt32: Destiny.DestinyStat].self, forKey: CodingKeys.stats)
         }
     }
 }

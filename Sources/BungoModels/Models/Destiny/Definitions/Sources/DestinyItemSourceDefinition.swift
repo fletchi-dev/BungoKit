@@ -9,7 +9,7 @@ public extension Destiny.Definitions.Sources {
     /// Items will have many of these sources, one per level at which it spawns, to try and give more granular data about where items spawn for specific level ranges.
     struct DestinyItemSourceDefinition: Codable {
         /// The stats computed for this level/quality range.
-        public var computedStats: [Int: Destiny.Definitions.DestinyInventoryItemStatDefinition]?
+        public var computedStats: [UInt32: Destiny.Definitions.DestinyInventoryItemStatDefinition]?
 
         /// The level at which the item spawns. Essentially the Primary Key for this source data: there will be multiple of these source entries per item that has source data, grouped by the level at which the item spawns.
         public var level: Int32?
@@ -42,7 +42,7 @@ public extension Destiny.Definitions.Sources {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            computedStats = try? container.decode([Int: Destiny.Definitions.DestinyInventoryItemStatDefinition].self, forKey: CodingKeys.computedStats)
+            computedStats = try? container.decode([UInt32: Destiny.Definitions.DestinyInventoryItemStatDefinition].self, forKey: CodingKeys.computedStats)
             level = try? container.decode(Int32.self, forKey: CodingKeys.level)
             maxLevelRequired = try? container.decode(Int32.self, forKey: CodingKeys.maxLevelRequired)
             maxQuality = try? container.decode(Int32.self, forKey: CodingKeys.maxQuality)

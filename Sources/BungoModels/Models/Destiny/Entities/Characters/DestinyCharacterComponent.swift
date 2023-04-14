@@ -72,7 +72,7 @@ public extension Destiny.Entities.Characters {
 
         /// Your character's stats, such as Agility, Resilience, etc... *not* historical stats.
         /// You'll have to call a different endpoint for those.
-        public var stats: [Int: Int32]?
+        public var stats: [UInt32: Int32]?
 
         /// If this Character has a title assigned to it, this is the identifier of the DestinyRecordDefinition that has that title information.
         public var titleRecordHash: UInt32?
@@ -145,7 +145,7 @@ public extension Destiny.Entities.Characters {
             percentToNextLevel = try? container.decode(Float.self, forKey: CodingKeys.percentToNextLevel)
             raceHash = try? container.decode(UInt32.self, forKey: CodingKeys.raceHash)
             raceType = try? container.decode(Destiny.DestinyRace.self, forKey: CodingKeys.raceType)
-            stats = try? container.decode([Int: Int32].self, forKey: CodingKeys.stats)
+            stats = try? container.decode([UInt32: Int32].self, forKey: CodingKeys.stats)
             titleRecordHash = try? container.decode(UInt32.self, forKey: CodingKeys.titleRecordHash)
         }
     }

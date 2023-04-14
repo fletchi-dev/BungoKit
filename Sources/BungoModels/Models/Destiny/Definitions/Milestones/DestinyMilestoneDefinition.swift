@@ -55,7 +55,7 @@ public extension Destiny.Definitions.Milestones {
 
         /// The full set of possible Quests that give the overview of the Milestone event/activity in question. Only one of these can be active at a time for a given Conceptual Milestone, but many of them may be "available" for the user to choose from. (for instance, with Milestones you can choose from the three available Quests, but only one can be active at a time) Keyed by the quest item.
         /// As of Forsaken (~September 2018), Quest-style Milestones are being removed for many types of activities. There will likely be further revisions to the Milestone concept in the future.
-        public var quests: [Int: Destiny.Definitions.Milestones.DestinyMilestoneQuestDefinition]?
+        public var quests: [UInt32: Destiny.Definitions.Milestones.DestinyMilestoneQuestDefinition]?
 
         /// If True, then the Milestone has been integrated with BNet's recruiting feature.
         public var recruitable: Bool?
@@ -65,7 +65,7 @@ public extension Destiny.Definitions.Milestones {
 
         /// If this milestone can provide rewards, this will define the categories into which the individual reward entries are placed.
         /// This is keyed by the Category's hash, which is only guaranteed to be unique within a given Milestone.
-        public var rewards: [Int: Destiny.Definitions.Milestones.DestinyMilestoneRewardCategoryDefinition]?
+        public var rewards: [UInt32: Destiny.Definitions.Milestones.DestinyMilestoneRewardCategoryDefinition]?
 
         /// If TRUE, this entry should be returned in the list of milestones for the "Explore Destiny" (i.e. new BNet homepage) features of Bungie.net (as long as the underlying event is active) Note that this is a property specifically used by BNet and the companion app for the "Live Events" feature of the front page/welcome view: it's not a reflection of what you see in-game.
         public var showInExplorer: Bool?
@@ -121,10 +121,10 @@ public extension Destiny.Definitions.Milestones {
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
             isInGameMilestone = try? container.decode(Bool.self, forKey: CodingKeys.isInGameMilestone)
             milestoneType = try? container.decode(Destiny.Definitions.Milestones.DestinyMilestoneType.self, forKey: CodingKeys.milestoneType)
-            quests = try? container.decode([Int: Destiny.Definitions.Milestones.DestinyMilestoneQuestDefinition].self, forKey: CodingKeys.quests)
+            quests = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneQuestDefinition].self, forKey: CodingKeys.quests)
             recruitable = try? container.decode(Bool.self, forKey: CodingKeys.recruitable)
             redacted = try? container.decode(Bool.self, forKey: CodingKeys.redacted)
-            rewards = try? container.decode([Int: Destiny.Definitions.Milestones.DestinyMilestoneRewardCategoryDefinition].self, forKey: CodingKeys.rewards)
+            rewards = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneRewardCategoryDefinition].self, forKey: CodingKeys.rewards)
             showInExplorer = try? container.decode(Bool.self, forKey: CodingKeys.showInExplorer)
             showInMilestones = try? container.decode(Bool.self, forKey: CodingKeys.showInMilestones)
             values = try? container.decode([String: Destiny.Definitions.Milestones.DestinyMilestoneValueDefinition].self, forKey: CodingKeys.values)

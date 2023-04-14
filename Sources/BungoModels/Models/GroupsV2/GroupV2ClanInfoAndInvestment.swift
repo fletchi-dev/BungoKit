@@ -11,7 +11,7 @@ public extension GroupsV2 {
 
         public var clanCallsign: String?
 
-        public var d2ClanProgressions: [Int: Destiny.DestinyProgression]?
+        public var d2ClanProgressions: [UInt32: Destiny.DestinyProgression]?
 
         public enum CodingKeys: String, CodingKey {
             case clanBannerData
@@ -24,7 +24,7 @@ public extension GroupsV2 {
 
             clanBannerData = try? container.decode(GroupsV2.ClanBanner.self, forKey: CodingKeys.clanBannerData)
             clanCallsign = try? container.decode(String.self, forKey: CodingKeys.clanCallsign)
-            d2ClanProgressions = try? container.decode([Int: Destiny.DestinyProgression].self, forKey: CodingKeys.d2ClanProgressions)
+            d2ClanProgressions = try? container.decode([UInt32: Destiny.DestinyProgression].self, forKey: CodingKeys.d2ClanProgressions)
         }
     }
 }

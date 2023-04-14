@@ -20,7 +20,7 @@ public extension Destiny.Definitions.Milestones {
         public var order: Int32?
 
         /// If this milestone can provide rewards, this will define the sets of rewards that can be earned, the conditions under which they can be acquired, internal data that we'll use at runtime to determine whether you've already earned or redeemed this set of rewards, and the category that this reward should be placed under.
-        public var rewardEntries: [Int: Destiny.Definitions.Milestones.DestinyMilestoneRewardEntryDefinition]?
+        public var rewardEntries: [UInt32: Destiny.Definitions.Milestones.DestinyMilestoneRewardEntryDefinition]?
 
         public enum CodingKeys: String, CodingKey {
             case categoryHash
@@ -37,7 +37,7 @@ public extension Destiny.Definitions.Milestones {
             categoryIdentifier = try? container.decode(String.self, forKey: CodingKeys.categoryIdentifier)
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
             order = try? container.decode(Int32.self, forKey: CodingKeys.order)
-            rewardEntries = try? container.decode([Int: Destiny.Definitions.Milestones.DestinyMilestoneRewardEntryDefinition].self, forKey: CodingKeys.rewardEntries)
+            rewardEntries = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneRewardEntryDefinition].self, forKey: CodingKeys.rewardEntries)
         }
     }
 }

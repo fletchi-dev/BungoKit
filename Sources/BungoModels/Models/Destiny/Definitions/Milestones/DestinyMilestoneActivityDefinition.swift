@@ -16,7 +16,7 @@ public extension Destiny.Definitions.Milestones {
         /// Even if there is only a single variant, the details for these are represented within as a variant definition.
         /// It is assumed that, if this DestinyMilestoneActivityDefinition is active, then all variants should be active.
         /// If a Milestone could ever split the variants' active status conditionally, they should all have their own DestinyMilestoneActivityDefinition instead! The potential duplication will be worth it for the obviousness of processing and use.
-        public var variants: [Int: Destiny.Definitions.Milestones.DestinyMilestoneActivityVariantDefinition]?
+        public var variants: [UInt32: Destiny.Definitions.Milestones.DestinyMilestoneActivityVariantDefinition]?
 
         public enum CodingKeys: String, CodingKey {
             case conceptualActivityHash
@@ -27,7 +27,7 @@ public extension Destiny.Definitions.Milestones {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             conceptualActivityHash = try? container.decode(UInt32.self, forKey: CodingKeys.conceptualActivityHash)
-            variants = try? container.decode([Int: Destiny.Definitions.Milestones.DestinyMilestoneActivityVariantDefinition].self, forKey: CodingKeys.variants)
+            variants = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneActivityVariantDefinition].self, forKey: CodingKeys.variants)
         }
     }
 }

@@ -8,7 +8,7 @@ public extension GroupsV2 {
     struct GetGroupsForMemberResponse: Codable {
         /// A convenience property that indicates if every membership this user has that is a part of this group are part of an account that is considered inactive - for example, overridden accounts in Cross Save.
         ///  The key is the Group ID for the group being checked, and the value is true if the users' memberships for that group are all inactive.
-        public var areAllMembershipsInactive: [Int: Bool]?
+        public var areAllMembershipsInactive: [Int64: Bool]?
 
         public var hasMore: Bool?
 
@@ -39,7 +39,7 @@ public extension GroupsV2 {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            areAllMembershipsInactive = try? container.decode([Int: Bool].self, forKey: CodingKeys.areAllMembershipsInactive)
+            areAllMembershipsInactive = try? container.decode([Int64: Bool].self, forKey: CodingKeys.areAllMembershipsInactive)
             hasMore = try? container.decode(Bool.self, forKey: CodingKeys.hasMore)
             query = try? container.decode(Queries.PagedQuery.self, forKey: CodingKeys.query)
             replacementContinuationToken = try? container.decode(String.self, forKey: CodingKeys.replacementContinuationToken)

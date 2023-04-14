@@ -11,13 +11,13 @@ public extension GroupsV2 {
         public var alliedIds: [Int64]?
 
         /// This property will be populated if the authenticated user is a member of the group. Note that because of account linking, a user can sometimes be part of a clan more than once. As such, this returns the highest member type available.
-        public var currentUserMemberMap: [Int: GroupsV2.GroupMember]?
+        public var currentUserMemberMap: [Int32: GroupsV2.GroupMember]?
 
         /// A convenience property that indicates if every membership you (the current user) have that is a part of this group are part of an account that is considered inactive - for example, overridden accounts in Cross Save.
         public var currentUserMembershipsInactiveForDestiny: Bool?
 
         /// This property will be populated if the authenticated user is an applicant or has an outstanding invitation to join. Note that because of account linking, a user can sometimes be part of a clan more than once.
-        public var currentUserPotentialMemberMap: [Int: GroupsV2.GroupPotentialMember]?
+        public var currentUserPotentialMemberMap: [Int32: GroupsV2.GroupPotentialMember]?
 
         public var detail: GroupsV2.GroupV2?
 
@@ -44,9 +44,9 @@ public extension GroupsV2 {
 
             allianceStatus = try? container.decode(GroupsV2.GroupAllianceStatus.self, forKey: CodingKeys.allianceStatus)
             alliedIds = try? container.decode([Int64].self, forKey: CodingKeys.alliedIds)
-            currentUserMemberMap = try? container.decode([Int: GroupsV2.GroupMember].self, forKey: CodingKeys.currentUserMemberMap)
+            currentUserMemberMap = try? container.decode([Int32: GroupsV2.GroupMember].self, forKey: CodingKeys.currentUserMemberMap)
             currentUserMembershipsInactiveForDestiny = try? container.decode(Bool.self, forKey: CodingKeys.currentUserMembershipsInactiveForDestiny)
-            currentUserPotentialMemberMap = try? container.decode([Int: GroupsV2.GroupPotentialMember].self, forKey: CodingKeys.currentUserPotentialMemberMap)
+            currentUserPotentialMemberMap = try? container.decode([Int32: GroupsV2.GroupPotentialMember].self, forKey: CodingKeys.currentUserPotentialMemberMap)
             detail = try? container.decode(GroupsV2.GroupV2.self, forKey: CodingKeys.detail)
             founder = try? container.decode(GroupsV2.GroupMember.self, forKey: CodingKeys.founder)
             groupJoinInviteCount = try? container.decode(Int32.self, forKey: CodingKeys.groupJoinInviteCount)

@@ -6,7 +6,7 @@ import Foundation
 
 public extension Destiny.Components.Presentation {
     struct DestinyPresentationNodesComponent: Codable {
-        public var nodes: [Int: Destiny.Components.Presentation.DestinyPresentationNodeComponent]?
+        public var nodes: [UInt32: Destiny.Components.Presentation.DestinyPresentationNodeComponent]?
 
         public enum CodingKeys: String, CodingKey {
             case nodes
@@ -15,7 +15,7 @@ public extension Destiny.Components.Presentation {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            nodes = try? container.decode([Int: Destiny.Components.Presentation.DestinyPresentationNodeComponent].self, forKey: CodingKeys.nodes)
+            nodes = try? container.decode([UInt32: Destiny.Components.Presentation.DestinyPresentationNodeComponent].self, forKey: CodingKeys.nodes)
         }
     }
 }

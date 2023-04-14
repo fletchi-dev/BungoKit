@@ -10,7 +10,7 @@ public extension Destiny.Entities.Items {
         /// A dictionary for rendering gear components, with:
         /// key = Art Arrangement Region Index
         /// value = The chosen Arrangement Index for the Region, based on the value of a stat on the item used for making the choice.
-        public var artRegions: [Int: Int32]?
+        public var artRegions: [Int32: Int32]?
 
         /// If you should use custom dyes on this item, it will be indicated here.
         public var useCustomDyes: Bool?
@@ -23,7 +23,7 @@ public extension Destiny.Entities.Items {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            artRegions = try? container.decode([Int: Int32].self, forKey: CodingKeys.artRegions)
+            artRegions = try? container.decode([Int32: Int32].self, forKey: CodingKeys.artRegions)
             useCustomDyes = try? container.decode(Bool.self, forKey: CodingKeys.useCustomDyes)
         }
     }

@@ -8,7 +8,7 @@ public extension Destiny.Definitions.Milestones {
     /// Any data we need to figure out whether this Quest Item is the currently active one for the conceptual Milestone. Even just typing this description, I already regret it.
     struct DestinyMilestoneQuestDefinition: Codable {
         /// The full set of all possible "conceptual activities" that are related to this Milestone. Tiers or alternative modes of play within these conceptual activities will be defined as sub-entities. Keyed by the Conceptual Activity Hash. Use the key to look up DestinyActivityDefinition.
-        public var activities: [Int: Destiny.Definitions.Milestones.DestinyMilestoneActivityDefinition]?
+        public var activities: [UInt32: Destiny.Definitions.Milestones.DestinyMilestoneActivityDefinition]?
 
         /// Sometimes, a Milestone's quest is related to an entire Destination rather than a specific activity. In that situation, this will be the hash of that Destination. Hotspots are currently the only Milestones that expose this data, but that does not preclude this data from being returned for other Milestones in the future.
         public var destinationHash: UInt32?
@@ -37,7 +37,7 @@ public extension Destiny.Definitions.Milestones {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            activities = try? container.decode([Int: Destiny.Definitions.Milestones.DestinyMilestoneActivityDefinition].self, forKey: CodingKeys.activities)
+            activities = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneActivityDefinition].self, forKey: CodingKeys.activities)
             destinationHash = try? container.decode(UInt32.self, forKey: CodingKeys.destinationHash)
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
             overrideImage = try? container.decode(String.self, forKey: CodingKeys.overrideImage)

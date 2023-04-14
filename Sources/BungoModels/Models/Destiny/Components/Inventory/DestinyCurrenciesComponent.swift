@@ -11,7 +11,7 @@ public extension Destiny.Components.Inventory {
     struct DestinyCurrenciesComponent: Codable {
         /// A dictionary - keyed by the item's hash identifier (DestinyInventoryItemDefinition), and whose value is the amount of that item you have across all available inventory buckets for purchasing.
         /// This allows you to see whether the requesting character can afford any given purchase/action without having to re-create this list itself.
-        public var itemQuantities: [Int: Int32]?
+        public var itemQuantities: [UInt32: Int32]?
 
         public enum CodingKeys: String, CodingKey {
             case itemQuantities
@@ -20,7 +20,7 @@ public extension Destiny.Components.Inventory {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            itemQuantities = try? container.decode([Int: Int32].self, forKey: CodingKeys.itemQuantities)
+            itemQuantities = try? container.decode([UInt32: Int32].self, forKey: CodingKeys.itemQuantities)
         }
     }
 }

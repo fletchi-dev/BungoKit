@@ -11,7 +11,7 @@ public extension Destiny.Components.Items {
         ///  In practice, a socket will *either* have reusable plugs *or* it will allow for plugs in your inventory to be inserted. See DestinyInventoryItemDefinition.socket for more info.
         ///  KEY = The INDEX into the item's list of sockets. VALUE = The set of plugs for that socket.
         ///  If a socket doesn't have any reusable plugs defined at the item scope, there will be no entry for that socket.
-        public var plugs: [Int: [Destiny.Sockets.DestinyItemPlugBase]]?
+        public var plugs: [Int32: [Destiny.Sockets.DestinyItemPlugBase]]?
 
         public enum CodingKeys: String, CodingKey {
             case plugs
@@ -20,7 +20,7 @@ public extension Destiny.Components.Items {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            plugs = try? container.decode([Int: [Destiny.Sockets.DestinyItemPlugBase]].self, forKey: CodingKeys.plugs)
+            plugs = try? container.decode([Int32: [Destiny.Sockets.DestinyItemPlugBase]].self, forKey: CodingKeys.plugs)
         }
     }
 }

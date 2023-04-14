@@ -22,7 +22,7 @@ public extension Destiny.Definitions {
 
         /// The game has the ability to override, based on the stat group, what the localized text is that is displayed for Stats being shown on the item.
         /// Mercifully, no Stat Groups use this feature currently. If they start using them, we'll all need to start using them (and those of you who are more prudent than I am can go ahead and start pre-checking for this.)
-        public var overrides: [Int: Destiny.Definitions.DestinyStatOverrideDefinition]?
+        public var overrides: [UInt32: Destiny.Definitions.DestinyStatOverrideDefinition]?
 
         /// If this is true, then there is an entity with this identifier/type combination, but BNet is not yet allowed to show it. Sorry!
         public var redacted: Bool?
@@ -50,7 +50,7 @@ public extension Destiny.Definitions {
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
             maximumValue = try? container.decode(Int32.self, forKey: CodingKeys.maximumValue)
-            overrides = try? container.decode([Int: Destiny.Definitions.DestinyStatOverrideDefinition].self, forKey: CodingKeys.overrides)
+            overrides = try? container.decode([UInt32: Destiny.Definitions.DestinyStatOverrideDefinition].self, forKey: CodingKeys.overrides)
             redacted = try? container.decode(Bool.self, forKey: CodingKeys.redacted)
             scaledStats = try? container.decode([Destiny.Definitions.DestinyStatDisplayDefinition].self, forKey: CodingKeys.scaledStats)
             uiPosition = try? container.decode(Int32.self, forKey: CodingKeys.uiPosition)

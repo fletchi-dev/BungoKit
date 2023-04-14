@@ -6,7 +6,7 @@ import Foundation
 
 public extension Destiny.Components.StringVariables {
     struct DestinyStringVariablesComponent: Codable {
-        public var integerValuesByHash: [Int: Int32]?
+        public var integerValuesByHash: [UInt32: Int32]?
 
         public enum CodingKeys: String, CodingKey {
             case integerValuesByHash
@@ -15,7 +15,7 @@ public extension Destiny.Components.StringVariables {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            integerValuesByHash = try? container.decode([Int: Int32].self, forKey: CodingKeys.integerValuesByHash)
+            integerValuesByHash = try? container.decode([UInt32: Int32].self, forKey: CodingKeys.integerValuesByHash)
         }
     }
 }
