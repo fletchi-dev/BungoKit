@@ -16,6 +16,7 @@ public final class BungoKit {
         didSet {
             // TODO: This should not be BungoKit's responsibility, but for now it is.
             persistToken()
+            api.token = token?.accessToken ?? ""
         }
     }
 

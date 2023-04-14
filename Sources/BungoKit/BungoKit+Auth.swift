@@ -6,10 +6,10 @@ public extension BungoKit {
     }
 
     internal func refreshToken() async throws {
-        guard let accessToken = token?.accessToken else {
+        guard let refreshToken = token?.refreshToken else {
             return
         }
 
-        token = try await auth.refreshToken(accessToken)
+        token = try await auth.refreshToken(refreshToken)
     }
 }
