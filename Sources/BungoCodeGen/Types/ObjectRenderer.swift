@@ -22,6 +22,20 @@ struct ObjectRenderer {
             var type = resolveSchemaType(schema: property.schema)
             type = TypeResolver.shared.swiftType(component: type)
 
+            var mapKeyType = ""
+            var mapValueType = ""
+            var mapDictionaryKeys = false
+
+            if type.hasPrefix("Dictionary<") {
+                let types = type[type.index(type.startIndex, offsetBy: 11) ... type.index(type.endIndex, offsetBy: -2)].split(separator: ",")
+
+                if types.count == 2, types[0] != "String" {
+                    mapKeyType = "\(types[0])"
+                    mapValueType = "\(types[1])"
+                    mapDictionaryKeys = true
+                }
+            }
+
             let description = (property.schema.metadata.description ?? "")
             let documentation = description
                 .replacingOccurrences(of: "\r", with: "")
@@ -33,6 +47,9 @@ struct ObjectRenderer {
                 "type": type,
                 "documentation": documentation,
                 "hasDefault": false,
+                "mapDictionaryFromString": mapDictionaryKeys,
+                "mapDictionaryKeyType": mapKeyType,
+                "mapDictionaryValueType": mapValueType,
             ])
 
             if type.contains("AnyCodable") {
@@ -160,23 +177,23 @@ struct ObjectRenderer {
     private func mapType(type: String) -> String {
         switch type.lowercased() {
         case "string":
-			return "String"
-		case "uint8":
-			return "UInt8"
-		case "uint16":
-			return "UInt16"
-		case "uint32":
-			return "UInt32"
-		case "uint64":
-			return "UInt64"
-		case "int8":
-			return "Int8"
-		case "int16":
-			return "Int16"
-		case "int32":
-			return "Int32"
-		case "int64":
-			return "Int64"
+            return "String"
+        case "uint8":
+            return "UInt8"
+        case "uint16":
+            return "UInt16"
+        case "uint32":
+            return "UInt32"
+        case "uint64":
+            return "UInt64"
+        case "int8":
+            return "Int8"
+        case "int16":
+            return "Int16"
+        case "int32":
+            return "Int32"
+        case "int64":
+            return "Int64"
         default:
             fatalError("unexpected type: \(type)")
         }

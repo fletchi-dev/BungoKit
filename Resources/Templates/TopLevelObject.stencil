@@ -32,6 +32,11 @@ public struct {{ name }}: Codable {
 		} else {
 			self.{{ property.name }} = nil
 		}
+		{% elif property.mapDictionaryFromString %}
+		let raw{{ property.name }} = try? container.decode([String: {{ property.mapDictionaryValueType }}].self, forKey: CodingKeys.{{ property.name }})
+		{{ property.name }} = raw{{ property.name }}?.compactMapKeys { key, _ -> {{ property.mapDictionaryKeyType }}? in
+			{{ property.mapDictionaryKeyType }}(key)
+		}
 		{% else %}
 		{{ property.name }} = try? container.decode({{ property.type }}.self, forKey: CodingKeys.{{ property.name }})
 		{% endif %}

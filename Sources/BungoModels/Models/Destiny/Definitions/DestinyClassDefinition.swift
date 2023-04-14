@@ -46,8 +46,14 @@ public extension Destiny.Definitions {
 
             classType = try? container.decode(Destiny.DestinyClass.self, forKey: CodingKeys.classType)
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
-            genderedClassNames = try? container.decode([Int32: String].self, forKey: CodingKeys.genderedClassNames)
-            genderedClassNamesByGenderHash = try? container.decode([UInt32: String].self, forKey: CodingKeys.genderedClassNamesByGenderHash)
+            let rawgenderedClassNames = try? container.decode([String: String].self, forKey: CodingKeys.genderedClassNames)
+            genderedClassNames = rawgenderedClassNames?.compactMapKeys { key, _ -> Int32? in
+                Int32(key)
+            }
+            let rawgenderedClassNamesByGenderHash = try? container.decode([String: String].self, forKey: CodingKeys.genderedClassNamesByGenderHash)
+            genderedClassNamesByGenderHash = rawgenderedClassNamesByGenderHash?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
             mentorVendorHash = try? container.decode(UInt32.self, forKey: CodingKeys.mentorVendorHash)

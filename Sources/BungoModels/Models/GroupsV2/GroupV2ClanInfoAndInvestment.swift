@@ -24,7 +24,10 @@ public extension GroupsV2 {
 
             clanBannerData = try? container.decode(GroupsV2.ClanBanner.self, forKey: CodingKeys.clanBannerData)
             clanCallsign = try? container.decode(String.self, forKey: CodingKeys.clanCallsign)
-            d2ClanProgressions = try? container.decode([UInt32: Destiny.DestinyProgression].self, forKey: CodingKeys.d2ClanProgressions)
+            let rawd2ClanProgressions = try? container.decode([String: Destiny.DestinyProgression].self, forKey: CodingKeys.d2ClanProgressions)
+            d2ClanProgressions = rawd2ClanProgressions?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

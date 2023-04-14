@@ -121,10 +121,16 @@ public extension Destiny.Definitions.Milestones {
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
             isInGameMilestone = try? container.decode(Bool.self, forKey: CodingKeys.isInGameMilestone)
             milestoneType = try? container.decode(Destiny.Definitions.Milestones.DestinyMilestoneType.self, forKey: CodingKeys.milestoneType)
-            quests = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneQuestDefinition].self, forKey: CodingKeys.quests)
+            let rawquests = try? container.decode([String: Destiny.Definitions.Milestones.DestinyMilestoneQuestDefinition].self, forKey: CodingKeys.quests)
+            quests = rawquests?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             recruitable = try? container.decode(Bool.self, forKey: CodingKeys.recruitable)
             redacted = try? container.decode(Bool.self, forKey: CodingKeys.redacted)
-            rewards = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneRewardCategoryDefinition].self, forKey: CodingKeys.rewards)
+            let rawrewards = try? container.decode([String: Destiny.Definitions.Milestones.DestinyMilestoneRewardCategoryDefinition].self, forKey: CodingKeys.rewards)
+            rewards = rawrewards?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             showInExplorer = try? container.decode(Bool.self, forKey: CodingKeys.showInExplorer)
             showInMilestones = try? container.decode(Bool.self, forKey: CodingKeys.showInMilestones)
             values = try? container.decode([String: Destiny.Definitions.Milestones.DestinyMilestoneValueDefinition].self, forKey: CodingKeys.values)

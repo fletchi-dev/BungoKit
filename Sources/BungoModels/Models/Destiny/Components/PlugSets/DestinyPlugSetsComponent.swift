@@ -18,7 +18,10 @@ public extension Destiny.Components.PlugSets {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            plugs = try? container.decode([UInt32: [Destiny.Sockets.DestinyItemPlug]].self, forKey: CodingKeys.plugs)
+            let rawplugs = try? container.decode([String: [Destiny.Sockets.DestinyItemPlug]].self, forKey: CodingKeys.plugs)
+            plugs = rawplugs?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

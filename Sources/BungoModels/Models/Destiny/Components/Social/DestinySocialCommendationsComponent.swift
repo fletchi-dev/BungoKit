@@ -24,8 +24,14 @@ public extension Destiny.Components.Social {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            commendationNodeScoresByHash = try? container.decode([UInt32: Int32].self, forKey: CodingKeys.commendationNodeScoresByHash)
-            commendationScoresByHash = try? container.decode([UInt32: Int32].self, forKey: CodingKeys.commendationScoresByHash)
+            let rawcommendationNodeScoresByHash = try? container.decode([String: Int32].self, forKey: CodingKeys.commendationNodeScoresByHash)
+            commendationNodeScoresByHash = rawcommendationNodeScoresByHash?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
+            let rawcommendationScoresByHash = try? container.decode([String: Int32].self, forKey: CodingKeys.commendationScoresByHash)
+            commendationScoresByHash = rawcommendationScoresByHash?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             scoreDetailValues = try? container.decode([Int32].self, forKey: CodingKeys.scoreDetailValues)
             totalScore = try? container.decode(Int32.self, forKey: CodingKeys.totalScore)
         }

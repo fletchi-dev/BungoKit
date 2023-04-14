@@ -19,7 +19,10 @@ public extension Destiny.Components.Items {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            objectivesPerPlug = try? container.decode([UInt32: [Destiny.Quests.DestinyObjectiveProgress]].self, forKey: CodingKeys.objectivesPerPlug)
+            let rawobjectivesPerPlug = try? container.decode([String: [Destiny.Quests.DestinyObjectiveProgress]].self, forKey: CodingKeys.objectivesPerPlug)
+            objectivesPerPlug = rawobjectivesPerPlug?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

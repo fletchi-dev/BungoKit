@@ -19,7 +19,10 @@ public extension Destiny.Entities.Items {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            stats = try? container.decode([UInt32: Destiny.DestinyStat].self, forKey: CodingKeys.stats)
+            let rawstats = try? container.decode([String: Destiny.DestinyStat].self, forKey: CodingKeys.stats)
+            stats = rawstats?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

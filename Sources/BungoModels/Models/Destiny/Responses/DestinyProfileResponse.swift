@@ -194,7 +194,10 @@ public extension Destiny.Responses {
             characterRecords = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.Records.DestinyCharacterRecordsComponent>.self, forKey: CodingKeys.characterRecords)
             characterRenderData = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterRenderComponent>.self, forKey: CodingKeys.characterRenderData)
             characterStringVariables = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Components.StringVariables.DestinyStringVariablesComponent>.self, forKey: CodingKeys.characterStringVariables)
-            characterUninstancedItemComponents = try? container.decode([Int64: DestinyBaseItemComponentSetOfuint32].self, forKey: CodingKeys.characterUninstancedItemComponents)
+            let rawcharacterUninstancedItemComponents = try? container.decode([String: DestinyBaseItemComponentSetOfuint32].self, forKey: CodingKeys.characterUninstancedItemComponents)
+            characterUninstancedItemComponents = rawcharacterUninstancedItemComponents?.compactMapKeys { key, _ -> Int64? in
+                Int64(key)
+            }
             characters = try? container.decode(DictionaryComponentResponse<Int64, Destiny.Entities.Characters.DestinyCharacterComponent>.self, forKey: CodingKeys.characters)
             itemComponents = try? container.decode(DestinyItemComponentSetOfint64.self, forKey: CodingKeys.itemComponents)
             metrics = try? container.decode(SingleComponentResponse<Destiny.Components.Metrics.DestinyMetricsComponent>.self, forKey: CodingKeys.metrics)

@@ -37,7 +37,10 @@ public extension Destiny.Definitions.Reporting {
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
-            reasons = try? container.decode([UInt32: Destiny.Definitions.Reporting.DestinyReportReasonDefinition].self, forKey: CodingKeys.reasons)
+            let rawreasons = try? container.decode([String: Destiny.Definitions.Reporting.DestinyReportReasonDefinition].self, forKey: CodingKeys.reasons)
+            reasons = rawreasons?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             redacted = try? container.decode(Bool.self, forKey: CodingKeys.redacted)
         }
     }

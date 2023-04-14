@@ -41,8 +41,14 @@ public extension Destiny.Definitions {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
-            genderedRaceNames = try? container.decode([Int32: String].self, forKey: CodingKeys.genderedRaceNames)
-            genderedRaceNamesByGenderHash = try? container.decode([UInt32: String].self, forKey: CodingKeys.genderedRaceNamesByGenderHash)
+            let rawgenderedRaceNames = try? container.decode([String: String].self, forKey: CodingKeys.genderedRaceNames)
+            genderedRaceNames = rawgenderedRaceNames?.compactMapKeys { key, _ -> Int32? in
+                Int32(key)
+            }
+            let rawgenderedRaceNamesByGenderHash = try? container.decode([String: String].self, forKey: CodingKeys.genderedRaceNamesByGenderHash)
+            genderedRaceNamesByGenderHash = rawgenderedRaceNamesByGenderHash?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
             raceType = try? container.decode(Destiny.DestinyRace.self, forKey: CodingKeys.raceType)

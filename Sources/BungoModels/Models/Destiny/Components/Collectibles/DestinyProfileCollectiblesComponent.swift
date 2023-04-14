@@ -32,7 +32,10 @@ public extension Destiny.Components.Collectibles {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            collectibles = try? container.decode([UInt32: Destiny.Components.Collectibles.DestinyCollectibleComponent].self, forKey: CodingKeys.collectibles)
+            let rawcollectibles = try? container.decode([String: Destiny.Components.Collectibles.DestinyCollectibleComponent].self, forKey: CodingKeys.collectibles)
+            collectibles = rawcollectibles?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             collectionBadgesRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.collectionBadgesRootNodeHash)
             collectionCategoriesRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.collectionCategoriesRootNodeHash)
             newnessFlaggedCollectibleHashes = try? container.decode([UInt32].self, forKey: CodingKeys.newnessFlaggedCollectibleHashes)

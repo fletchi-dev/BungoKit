@@ -18,7 +18,10 @@ public extension Destiny.Components.Metrics {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            metrics = try? container.decode([UInt32: Destiny.Components.Metrics.DestinyMetricComponent].self, forKey: CodingKeys.metrics)
+            let rawmetrics = try? container.decode([String: Destiny.Components.Metrics.DestinyMetricComponent].self, forKey: CodingKeys.metrics)
+            metrics = rawmetrics?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             metricsRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.metricsRootNodeHash)
         }
     }

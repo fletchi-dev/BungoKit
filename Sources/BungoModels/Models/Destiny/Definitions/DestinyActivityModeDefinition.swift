@@ -72,7 +72,10 @@ public extension Destiny.Definitions {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             activityModeCategory = try? container.decode(Destiny.DestinyActivityModeCategory.self, forKey: CodingKeys.activityModeCategory)
-            activityModeMappings = try? container.decode([UInt32: Destiny.HistoricalStats.Definitions.DestinyActivityModeType].self, forKey: CodingKeys.activityModeMappings)
+            let rawactivityModeMappings = try? container.decode([String: Destiny.HistoricalStats.Definitions.DestinyActivityModeType].self, forKey: CodingKeys.activityModeMappings)
+            activityModeMappings = rawactivityModeMappings?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             display = try? container.decode(Bool.self, forKey: CodingKeys.display)
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
             friendlyName = try? container.decode(String.self, forKey: CodingKeys.friendlyName)

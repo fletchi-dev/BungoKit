@@ -42,7 +42,10 @@ public extension Destiny.Definitions.Sources {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            computedStats = try? container.decode([UInt32: Destiny.Definitions.DestinyInventoryItemStatDefinition].self, forKey: CodingKeys.computedStats)
+            let rawcomputedStats = try? container.decode([String: Destiny.Definitions.DestinyInventoryItemStatDefinition].self, forKey: CodingKeys.computedStats)
+            computedStats = rawcomputedStats?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             level = try? container.decode(Int32.self, forKey: CodingKeys.level)
             maxLevelRequired = try? container.decode(Int32.self, forKey: CodingKeys.maxLevelRequired)
             maxQuality = try? container.decode(Int32.self, forKey: CodingKeys.maxQuality)

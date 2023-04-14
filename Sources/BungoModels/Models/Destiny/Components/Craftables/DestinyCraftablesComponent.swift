@@ -20,7 +20,10 @@ public extension Destiny.Components.Craftables {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            craftables = try? container.decode([UInt32: Destiny.Components.Craftables.DestinyCraftableComponent].self, forKey: CodingKeys.craftables)
+            let rawcraftables = try? container.decode([String: Destiny.Components.Craftables.DestinyCraftableComponent].self, forKey: CodingKeys.craftables)
+            craftables = rawcraftables?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             craftingRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.craftingRootNodeHash)
         }
     }

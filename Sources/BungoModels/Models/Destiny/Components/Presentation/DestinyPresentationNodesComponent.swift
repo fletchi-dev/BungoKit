@@ -15,7 +15,10 @@ public extension Destiny.Components.Presentation {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            nodes = try? container.decode([UInt32: Destiny.Components.Presentation.DestinyPresentationNodeComponent].self, forKey: CodingKeys.nodes)
+            let rawnodes = try? container.decode([String: Destiny.Components.Presentation.DestinyPresentationNodeComponent].self, forKey: CodingKeys.nodes)
+            nodes = rawnodes?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

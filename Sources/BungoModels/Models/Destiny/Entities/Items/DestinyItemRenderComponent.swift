@@ -23,7 +23,10 @@ public extension Destiny.Entities.Items {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            artRegions = try? container.decode([Int32: Int32].self, forKey: CodingKeys.artRegions)
+            let rawartRegions = try? container.decode([String: Int32].self, forKey: CodingKeys.artRegions)
+            artRegions = rawartRegions?.compactMapKeys { key, _ -> Int32? in
+                Int32(key)
+            }
             useCustomDyes = try? container.decode(Bool.self, forKey: CodingKeys.useCustomDyes)
         }
     }

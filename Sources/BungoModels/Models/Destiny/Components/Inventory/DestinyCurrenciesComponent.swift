@@ -20,7 +20,10 @@ public extension Destiny.Components.Inventory {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            itemQuantities = try? container.decode([UInt32: Int32].self, forKey: CodingKeys.itemQuantities)
+            let rawitemQuantities = try? container.decode([String: Int32].self, forKey: CodingKeys.itemQuantities)
+            itemQuantities = rawitemQuantities?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

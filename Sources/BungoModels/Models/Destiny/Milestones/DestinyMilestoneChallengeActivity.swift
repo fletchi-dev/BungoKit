@@ -39,7 +39,10 @@ public extension Destiny.Milestones {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             activityHash = try? container.decode(UInt32.self, forKey: CodingKeys.activityHash)
-            booleanActivityOptions = try? container.decode([UInt32: Bool].self, forKey: CodingKeys.booleanActivityOptions)
+            let rawbooleanActivityOptions = try? container.decode([String: Bool].self, forKey: CodingKeys.booleanActivityOptions)
+            booleanActivityOptions = rawbooleanActivityOptions?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             challenges = try? container.decode([Destiny.Challenges.DestinyChallengeStatus].self, forKey: CodingKeys.challenges)
             loadoutRequirementIndex = try? container.decode(Int32.self, forKey: CodingKeys.loadoutRequirementIndex)
             modifierHashes = try? container.decode([UInt32].self, forKey: CodingKeys.modifierHashes)

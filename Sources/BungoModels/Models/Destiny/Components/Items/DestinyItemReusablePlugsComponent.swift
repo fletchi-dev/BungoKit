@@ -20,7 +20,10 @@ public extension Destiny.Components.Items {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            plugs = try? container.decode([Int32: [Destiny.Sockets.DestinyItemPlugBase]].self, forKey: CodingKeys.plugs)
+            let rawplugs = try? container.decode([String: [Destiny.Sockets.DestinyItemPlugBase]].self, forKey: CodingKeys.plugs)
+            plugs = rawplugs?.compactMapKeys { key, _ -> Int32? in
+                Int32(key)
+            }
         }
     }
 }

@@ -43,7 +43,10 @@ public extension Destiny.Definitions {
             hasDisplayableStats = try? container.decode(Bool.self, forKey: CodingKeys.hasDisplayableStats)
             primaryBaseStatHash = try? container.decode(UInt32.self, forKey: CodingKeys.primaryBaseStatHash)
             statGroupHash = try? container.decode(UInt32.self, forKey: CodingKeys.statGroupHash)
-            stats = try? container.decode([UInt32: Destiny.Definitions.DestinyInventoryItemStatDefinition].self, forKey: CodingKeys.stats)
+            let rawstats = try? container.decode([String: Destiny.Definitions.DestinyInventoryItemStatDefinition].self, forKey: CodingKeys.stats)
+            stats = rawstats?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

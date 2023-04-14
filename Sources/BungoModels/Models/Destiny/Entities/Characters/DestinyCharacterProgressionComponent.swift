@@ -52,13 +52,28 @@ public extension Destiny.Entities.Characters {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             checklists = try? container.decode([UInt32: [UInt32: Bool]].self, forKey: CodingKeys.checklists)
-            factions = try? container.decode([UInt32: Destiny.Progression.DestinyFactionProgression].self, forKey: CodingKeys.factions)
-            milestones = try? container.decode([UInt32: Destiny.Milestones.DestinyMilestone].self, forKey: CodingKeys.milestones)
-            progressions = try? container.decode([UInt32: Destiny.DestinyProgression].self, forKey: CodingKeys.progressions)
+            let rawfactions = try? container.decode([String: Destiny.Progression.DestinyFactionProgression].self, forKey: CodingKeys.factions)
+            factions = rawfactions?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
+            let rawmilestones = try? container.decode([String: Destiny.Milestones.DestinyMilestone].self, forKey: CodingKeys.milestones)
+            milestones = rawmilestones?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
+            let rawprogressions = try? container.decode([String: Destiny.DestinyProgression].self, forKey: CodingKeys.progressions)
+            progressions = rawprogressions?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             quests = try? container.decode([Destiny.Quests.DestinyQuestStatus].self, forKey: CodingKeys.quests)
             seasonalArtifact = try? container.decode(Destiny.Artifacts.DestinyArtifactCharacterScoped.self, forKey: CodingKeys.seasonalArtifact)
-            uninstancedItemObjectives = try? container.decode([UInt32: [Destiny.Quests.DestinyObjectiveProgress]].self, forKey: CodingKeys.uninstancedItemObjectives)
-            uninstancedItemPerks = try? container.decode([UInt32: Destiny.Entities.Items.DestinyItemPerksComponent].self, forKey: CodingKeys.uninstancedItemPerks)
+            let rawuninstancedItemObjectives = try? container.decode([String: [Destiny.Quests.DestinyObjectiveProgress]].self, forKey: CodingKeys.uninstancedItemObjectives)
+            uninstancedItemObjectives = rawuninstancedItemObjectives?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
+            let rawuninstancedItemPerks = try? container.decode([String: Destiny.Entities.Items.DestinyItemPerksComponent].self, forKey: CodingKeys.uninstancedItemPerks)
+            uninstancedItemPerks = rawuninstancedItemPerks?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

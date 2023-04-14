@@ -14,6 +14,9 @@ public struct DestinyVendorSaleItemSetComponentOfDestinyPublicVendorSaleItemComp
     public init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-        saleItems = try? container.decode([Int32: Destiny.Components.Vendors.DestinyPublicVendorSaleItemComponent].self, forKey: CodingKeys.saleItems)
+        let rawsaleItems = try? container.decode([String: Destiny.Components.Vendors.DestinyPublicVendorSaleItemComponent].self, forKey: CodingKeys.saleItems)
+        saleItems = rawsaleItems?.compactMapKeys { key, _ -> Int32? in
+            Int32(key)
+        }
     }
 }

@@ -19,7 +19,10 @@ public extension Destiny.Components.Kiosks {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            kioskItems = try? container.decode([UInt32: [Destiny.Components.Kiosks.DestinyKioskItem]].self, forKey: CodingKeys.kioskItems)
+            let rawkioskItems = try? container.decode([String: [Destiny.Components.Kiosks.DestinyKioskItem]].self, forKey: CodingKeys.kioskItems)
+            kioskItems = rawkioskItems?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

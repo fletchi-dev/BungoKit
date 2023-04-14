@@ -69,7 +69,10 @@ public extension Destiny.Definitions {
 
             exclusiveSets = try? container.decode([Destiny.Definitions.DestinyTalentNodeExclusiveSetDefinition].self, forKey: CodingKeys.exclusiveSets)
             gridLevelPerColumn = try? container.decode(Int32.self, forKey: CodingKeys.gridLevelPerColumn)
-            groups = try? container.decode([UInt32: Destiny.Definitions.DestinyTalentExclusiveGroup].self, forKey: CodingKeys.groups)
+            let rawgroups = try? container.decode([String: Destiny.Definitions.DestinyTalentExclusiveGroup].self, forKey: CodingKeys.groups)
+            groups = rawgroups?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             independentNodeIndexes = try? container.decode([Int32].self, forKey: CodingKeys.independentNodeIndexes)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)

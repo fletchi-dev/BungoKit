@@ -37,7 +37,10 @@ public extension Destiny.Definitions.Milestones {
             categoryIdentifier = try? container.decode(String.self, forKey: CodingKeys.categoryIdentifier)
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
             order = try? container.decode(Int32.self, forKey: CodingKeys.order)
-            rewardEntries = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneRewardEntryDefinition].self, forKey: CodingKeys.rewardEntries)
+            let rawrewardEntries = try? container.decode([String: Destiny.Definitions.Milestones.DestinyMilestoneRewardEntryDefinition].self, forKey: CodingKeys.rewardEntries)
+            rewardEntries = rawrewardEntries?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

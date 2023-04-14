@@ -145,7 +145,10 @@ public extension Destiny.Entities.Characters {
             percentToNextLevel = try? container.decode(Float.self, forKey: CodingKeys.percentToNextLevel)
             raceHash = try? container.decode(UInt32.self, forKey: CodingKeys.raceHash)
             raceType = try? container.decode(Destiny.DestinyRace.self, forKey: CodingKeys.raceType)
-            stats = try? container.decode([UInt32: Int32].self, forKey: CodingKeys.stats)
+            let rawstats = try? container.decode([String: Int32].self, forKey: CodingKeys.stats)
+            stats = rawstats?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             titleRecordHash = try? container.decode(UInt32.self, forKey: CodingKeys.titleRecordHash)
         }
     }

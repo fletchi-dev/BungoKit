@@ -57,7 +57,10 @@ public extension Destiny.Definitions {
             redacted = try? container.decode(Bool.self, forKey: CodingKeys.redacted)
             rewardItemHash = try? container.decode(UInt32.self, forKey: CodingKeys.rewardItemHash)
             rewardVendorHash = try? container.decode(UInt32.self, forKey: CodingKeys.rewardVendorHash)
-            tokenValues = try? container.decode([UInt32: UInt32].self, forKey: CodingKeys.tokenValues)
+            let rawtokenValues = try? container.decode([String: UInt32].self, forKey: CodingKeys.tokenValues)
+            tokenValues = rawtokenValues?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             vendors = try? container.decode([Destiny.Definitions.DestinyFactionVendorDefinition].self, forKey: CodingKeys.vendors)
         }
     }

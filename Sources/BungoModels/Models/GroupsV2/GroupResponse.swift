@@ -44,9 +44,15 @@ public extension GroupsV2 {
 
             allianceStatus = try? container.decode(GroupsV2.GroupAllianceStatus.self, forKey: CodingKeys.allianceStatus)
             alliedIds = try? container.decode([Int64].self, forKey: CodingKeys.alliedIds)
-            currentUserMemberMap = try? container.decode([Int32: GroupsV2.GroupMember].self, forKey: CodingKeys.currentUserMemberMap)
+            let rawcurrentUserMemberMap = try? container.decode([String: GroupsV2.GroupMember].self, forKey: CodingKeys.currentUserMemberMap)
+            currentUserMemberMap = rawcurrentUserMemberMap?.compactMapKeys { key, _ -> Int32? in
+                Int32(key)
+            }
             currentUserMembershipsInactiveForDestiny = try? container.decode(Bool.self, forKey: CodingKeys.currentUserMembershipsInactiveForDestiny)
-            currentUserPotentialMemberMap = try? container.decode([Int32: GroupsV2.GroupPotentialMember].self, forKey: CodingKeys.currentUserPotentialMemberMap)
+            let rawcurrentUserPotentialMemberMap = try? container.decode([String: GroupsV2.GroupPotentialMember].self, forKey: CodingKeys.currentUserPotentialMemberMap)
+            currentUserPotentialMemberMap = rawcurrentUserPotentialMemberMap?.compactMapKeys { key, _ -> Int32? in
+                Int32(key)
+            }
             detail = try? container.decode(GroupsV2.GroupV2.self, forKey: CodingKeys.detail)
             founder = try? container.decode(GroupsV2.GroupMember.self, forKey: CodingKeys.founder)
             groupJoinInviteCount = try? container.decode(Int32.self, forKey: CodingKeys.groupJoinInviteCount)

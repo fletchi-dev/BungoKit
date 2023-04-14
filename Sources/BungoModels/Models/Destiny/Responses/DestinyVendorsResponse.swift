@@ -51,7 +51,10 @@ public extension Destiny.Responses {
 
             categories = try? container.decode(DictionaryComponentResponse<UInt32, Destiny.Entities.Vendors.DestinyVendorCategoriesComponent>.self, forKey: CodingKeys.categories)
             currencyLookups = try? container.decode(SingleComponentResponse<Destiny.Components.Inventory.DestinyCurrenciesComponent>.self, forKey: CodingKeys.currencyLookups)
-            itemComponents = try? container.decode([UInt32: DestinyItemComponentSetOfint32].self, forKey: CodingKeys.itemComponents)
+            let rawitemComponents = try? container.decode([String: DestinyItemComponentSetOfint32].self, forKey: CodingKeys.itemComponents)
+            itemComponents = rawitemComponents?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             sales = try? container.decode(DictionaryComponentResponse<UInt32, Destiny.Responses.PersonalDestinyVendorSaleItemSetComponent>.self, forKey: CodingKeys.sales)
             stringVariables = try? container.decode(SingleComponentResponse<Destiny.Components.StringVariables.DestinyStringVariablesComponent>.self, forKey: CodingKeys.stringVariables)
             vendorGroups = try? container.decode(SingleComponentResponse<Destiny.Components.Vendors.DestinyVendorGroupComponent>.self, forKey: CodingKeys.vendorGroups)

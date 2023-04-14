@@ -27,7 +27,10 @@ public extension Destiny.Definitions.Milestones {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             conceptualActivityHash = try? container.decode(UInt32.self, forKey: CodingKeys.conceptualActivityHash)
-            variants = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneActivityVariantDefinition].self, forKey: CodingKeys.variants)
+            let rawvariants = try? container.decode([String: Destiny.Definitions.Milestones.DestinyMilestoneActivityVariantDefinition].self, forKey: CodingKeys.variants)
+            variants = rawvariants?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

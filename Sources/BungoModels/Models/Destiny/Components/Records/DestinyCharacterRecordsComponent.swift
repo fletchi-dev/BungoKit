@@ -29,7 +29,10 @@ public extension Destiny.Components.Records {
             featuredRecordHashes = try? container.decode([UInt32].self, forKey: CodingKeys.featuredRecordHashes)
             recordCategoriesRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.recordCategoriesRootNodeHash)
             recordSealsRootNodeHash = try? container.decode(UInt32.self, forKey: CodingKeys.recordSealsRootNodeHash)
-            records = try? container.decode([UInt32: Destiny.Components.Records.DestinyRecordComponent].self, forKey: CodingKeys.records)
+            let rawrecords = try? container.decode([String: Destiny.Components.Records.DestinyRecordComponent].self, forKey: CodingKeys.records)
+            records = rawrecords?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }

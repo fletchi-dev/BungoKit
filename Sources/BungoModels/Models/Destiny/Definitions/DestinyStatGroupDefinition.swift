@@ -50,7 +50,10 @@ public extension Destiny.Definitions {
             hash = try? container.decode(UInt32.self, forKey: CodingKeys.hash)
             index = try? container.decode(Int32.self, forKey: CodingKeys.index)
             maximumValue = try? container.decode(Int32.self, forKey: CodingKeys.maximumValue)
-            overrides = try? container.decode([UInt32: Destiny.Definitions.DestinyStatOverrideDefinition].self, forKey: CodingKeys.overrides)
+            let rawoverrides = try? container.decode([String: Destiny.Definitions.DestinyStatOverrideDefinition].self, forKey: CodingKeys.overrides)
+            overrides = rawoverrides?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             redacted = try? container.decode(Bool.self, forKey: CodingKeys.redacted)
             scaledStats = try? container.decode([Destiny.Definitions.DestinyStatDisplayDefinition].self, forKey: CodingKeys.scaledStats)
             uiPosition = try? container.decode(Int32.self, forKey: CodingKeys.uiPosition)

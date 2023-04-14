@@ -39,7 +39,10 @@ public extension GroupsV2 {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            areAllMembershipsInactive = try? container.decode([Int64: Bool].self, forKey: CodingKeys.areAllMembershipsInactive)
+            let rawareAllMembershipsInactive = try? container.decode([String: Bool].self, forKey: CodingKeys.areAllMembershipsInactive)
+            areAllMembershipsInactive = rawareAllMembershipsInactive?.compactMapKeys { key, _ -> Int64? in
+                Int64(key)
+            }
             hasMore = try? container.decode(Bool.self, forKey: CodingKeys.hasMore)
             query = try? container.decode(Queries.PagedQuery.self, forKey: CodingKeys.query)
             replacementContinuationToken = try? container.decode(String.self, forKey: CodingKeys.replacementContinuationToken)

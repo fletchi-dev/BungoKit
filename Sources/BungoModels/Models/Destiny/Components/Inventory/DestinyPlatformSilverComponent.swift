@@ -16,7 +16,10 @@ public extension Destiny.Components.Inventory {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            platformSilver = try? container.decode([Int32: Destiny.Entities.Items.DestinyItemComponent].self, forKey: CodingKeys.platformSilver)
+            let rawplatformSilver = try? container.decode([String: Destiny.Entities.Items.DestinyItemComponent].self, forKey: CodingKeys.platformSilver)
+            platformSilver = rawplatformSilver?.compactMapKeys { key, _ -> Int32? in
+                Int32(key)
+            }
         }
     }
 }

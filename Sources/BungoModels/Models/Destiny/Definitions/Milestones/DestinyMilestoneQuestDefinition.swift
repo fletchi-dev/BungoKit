@@ -37,7 +37,10 @@ public extension Destiny.Definitions.Milestones {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            activities = try? container.decode([UInt32: Destiny.Definitions.Milestones.DestinyMilestoneActivityDefinition].self, forKey: CodingKeys.activities)
+            let rawactivities = try? container.decode([String: Destiny.Definitions.Milestones.DestinyMilestoneActivityDefinition].self, forKey: CodingKeys.activities)
+            activities = rawactivities?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
             destinationHash = try? container.decode(UInt32.self, forKey: CodingKeys.destinationHash)
             displayProperties = try? container.decode(Destiny.Definitions.Common.DestinyDisplayPropertiesDefinition.self, forKey: CodingKeys.displayProperties)
             overrideImage = try? container.decode(String.self, forKey: CodingKeys.overrideImage)

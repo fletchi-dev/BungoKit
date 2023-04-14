@@ -24,7 +24,10 @@ public extension Destiny.Definitions {
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            arrangementIndexByStatValue = try? container.decode([Int32: Int32].self, forKey: CodingKeys.arrangementIndexByStatValue)
+            let rawarrangementIndexByStatValue = try? container.decode([String: Int32].self, forKey: CodingKeys.arrangementIndexByStatValue)
+            arrangementIndexByStatValue = rawarrangementIndexByStatValue?.compactMapKeys { key, _ -> Int32? in
+                Int32(key)
+            }
             artArrangementRegionHash = try? container.decode(UInt32.self, forKey: CodingKeys.artArrangementRegionHash)
             artArrangementRegionIndex = try? container.decode(Int32.self, forKey: CodingKeys.artArrangementRegionIndex)
             statHash = try? container.decode(UInt32.self, forKey: CodingKeys.statHash)

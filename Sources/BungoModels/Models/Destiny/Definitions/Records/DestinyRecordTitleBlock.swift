@@ -27,8 +27,14 @@ public extension Destiny.Definitions.Records {
 
             gildingTrackingRecordHash = try? container.decode(UInt32.self, forKey: CodingKeys.gildingTrackingRecordHash)
             hasTitle = try? container.decode(Bool.self, forKey: CodingKeys.hasTitle)
-            titlesByGender = try? container.decode([Int32: String].self, forKey: CodingKeys.titlesByGender)
-            titlesByGenderHash = try? container.decode([UInt32: String].self, forKey: CodingKeys.titlesByGenderHash)
+            let rawtitlesByGender = try? container.decode([String: String].self, forKey: CodingKeys.titlesByGender)
+            titlesByGender = rawtitlesByGender?.compactMapKeys { key, _ -> Int32? in
+                Int32(key)
+            }
+            let rawtitlesByGenderHash = try? container.decode([String: String].self, forKey: CodingKeys.titlesByGenderHash)
+            titlesByGenderHash = rawtitlesByGenderHash?.compactMapKeys { key, _ -> UInt32? in
+                UInt32(key)
+            }
         }
     }
 }
