@@ -14,9 +14,7 @@ public extension BungoKit {
                 try await refreshToken()
 
                 response = try await api.send(request)
-            case let .decode(error, data):
-                let str = String(data: data, encoding: .utf8)
-                print(str)
+            case .decode:
                 throw error
             default:
                 throw error
@@ -30,5 +28,9 @@ public extension BungoKit {
         }
 
         return data
+    }
+
+    func url(at path: String) -> URL {
+        api.url(at: path)
     }
 }
