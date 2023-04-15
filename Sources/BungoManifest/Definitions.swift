@@ -56,3 +56,35 @@ public struct DestinyCollectibleDefinition: ManifestDefinition {
 
     public init() {}
 }
+
+public struct DestinyActivityDefinition: ManifestDefinition {
+    public typealias Result = Destiny.Definitions.DestinyActivityDefinition
+
+    public let table: String = "DestinyActivityDefinition"
+
+    public init() {}
+}
+
+public struct DestinyDestinationDefinition: ManifestDefinition {
+    public typealias Result = Destiny.Definitions.DestinyDestinationDefinition
+
+    public let table: String = "DestinyDestinationDefinition"
+
+    public init() {}
+}
+
+public struct DestinyObjectiveDefinition: ManifestDefinition {
+    public typealias Result = Destiny.Definitions.DestinyObjectiveDefinition
+
+    public let table: String = "DestinyObjectiveDefinition"
+
+    public init() {}
+}
+
+public struct DestinyLocationDefinition: ManifestDefinition {
+    public typealias Result = Destiny.Definitions.DestinyLocationDefinition
+
+    public let table: String = "DestinyLocationDefinition"
+
+    public init() {}
+}
