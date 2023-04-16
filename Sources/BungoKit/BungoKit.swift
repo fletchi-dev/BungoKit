@@ -3,6 +3,9 @@ import BungoClient
 import BungoManifest
 import BungoModels
 import Foundation
+#if canImport(Combine)
+import Combine
+#endif
 
 public final class BungoKit {
     let configuration: Configuration
@@ -12,12 +15,21 @@ public final class BungoKit {
     let api: BungoClient
     var manifests: [BungoLocale: Manifest] = [:]
     var manifestResponseCache: ManifestResponseCache?
+	
+	#if canImport(Combine)
+	private let tokenSubject: CurrentValueSubject<BungoTokenResponse?, Never> = CurrentValueSubject(nil)
+	
+	public var tokenPublisher: AnyPublisher<BungoTokenResponse?, Never> {
+		tokenSubject.eraseToAnyPublisher()
+	}
+	#endif
 
-    public var token: BungoTokenResponse? {
+	public var token: BungoTokenResponse? {
         didSet {
-            // TODO: This should not be BungoKit's responsibility, but for now it is.
-            persistToken()
             api.token = token?.accessToken ?? ""
+			#if canImport(Combine)
+			tokenSubject.value = token
+			#endif
         }
     }
 
@@ -40,32 +52,5 @@ public final class BungoKit {
             callbackScheme: configuration.callbackScheme,
             urlSession: api.urlSession
         )
-
-        // TODO: This should not be BungoKit's responsibility, but for now it is.
-        restoreToken()
-    }
-
-    // TODO: This should not be BungoKit's responsibility, but for now it is.
-    private func persistToken() {
-        if let token {
-            let data = try! JSONEncoder().encode(token)
-            let string = String(data: data, encoding: .utf8)!
-
-            UserDefaults.standard.set(string, forKey: "token")
-        } else {
-            UserDefaults.standard.set(nil, forKey: "token")
-        }
-    }
-
-    // TODO: This should not be BungoKit's responsibility, but for now it is.
-    private func restoreToken() {
-        guard let json = UserDefaults.standard.string(forKey: "token")?.data(using: .utf8),
-              let token = try? JSONDecoder().decode(BungoTokenResponse.self, from: json)
-        else {
-            return
-        }
-
-        self.token = token
-        api.token = token.accessToken
     }
 }
